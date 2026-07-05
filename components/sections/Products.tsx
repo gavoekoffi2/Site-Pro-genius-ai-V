@@ -70,10 +70,10 @@ export default function Products() {
           <TiltCard className="h-full rounded-3xl">
             <Link
               href="/produits"
-              className="group flex h-full min-h-[300px] flex-col items-center justify-center gap-5 rounded-3xl border border-dashed border-white/15 bg-white/[0.015] p-7 text-center transition-colors duration-500 hover:border-cyan/40 hover:bg-cyan/[0.03]"
+              className="group flex h-full min-h-[300px] flex-col items-center justify-center gap-5 rounded-3xl border border-dashed border-white/15 bg-white/[0.015] p-7 text-center transition-colors duration-500 hover:border-ember/40 hover:bg-ember/[0.03]"
             >
-              <span className="glass flex h-14 w-14 items-center justify-center rounded-full transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(56,225,255,0.25)]">
-                <ArrowUpRight size={20} className="text-cyan" />
+              <span className="glass flex h-14 w-14 items-center justify-center rounded-full transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(255,155,69,0.25)]">
+                <ArrowUpRight size={20} className="text-ember" />
               </span>
               <span className="font-display text-lg font-medium text-frost">{dict.products.viewAll}</span>
             </Link>

@@ -26,14 +26,14 @@ export default function Preloader() {
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#020308]"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050302]"
           exit={{ opacity: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } }}
           aria-hidden
         >
           <div className="relative flex flex-col items-center gap-8">
             <motion.div
               className="absolute h-56 w-56 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(56,225,255,0.14), transparent 65%)" }}
+              style={{ background: "radial-gradient(circle, rgba(255,155,69,0.14), transparent 65%)" }}
               initial={{ scale: 0.4, opacity: 0 }}
               animate={{ scale: [0.4, 1.15, 1], opacity: [0, 1, 0.8] }}
               transition={{ duration: 2, ease: "easeOut" }}
@@ -54,15 +54,15 @@ export default function Preloader() {
                 transition={{ duration: 1.1, delay: 0.5, ease: "easeInOut" }}
               />
               <motion.circle
-                cx="68" cy="66" r="3.4" fill="#38e1ff"
+                cx="68" cy="66" r="3.4" fill="#ff9b45"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 1.5, duration: 0.4 }}
               />
               <defs>
                 <linearGradient id="pg" x1="0" y1="0" x2="100" y2="100">
-                  <stop stopColor="#38e1ff" />
-                  <stop offset="1" stopColor="#2f6bff" />
+                  <stop stopColor="#ff9b45" />
+                  <stop offset="1" stopColor="#2e5fb7" />
                 </linearGradient>
               </defs>
             </svg>

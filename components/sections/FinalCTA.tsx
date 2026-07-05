@@ -48,9 +48,9 @@ function EnergySphere() {
 
       // halo extérieur
       const outer = ctx.createRadialGradient(cx + pullX, cy + pullY, baseR * 0.4, cx + pullX, cy + pullY, baseR * 2.6);
-      outer.addColorStop(0, `rgba(56,225,255,${0.14 + mouse.active * 0.08})`);
-      outer.addColorStop(0.5, "rgba(47,107,255,0.07)");
-      outer.addColorStop(1, "rgba(47,107,255,0)");
+      outer.addColorStop(0, `rgba(255,155,69,${0.14 + mouse.active * 0.08})`);
+      outer.addColorStop(0.5, "rgba(46,95,183,0.07)");
+      outer.addColorStop(1, "rgba(46,95,183,0)");
       ctx.fillStyle = outer;
       ctx.fillRect(0, 0, SIZE, SIZE);
 
@@ -76,20 +76,23 @@ function EnergySphere() {
         cx + pullX * 0.4 - baseR * 0.3, cy + pullY * 0.4 - baseR * 0.35, baseR * 0.1,
         cx + pullX * 0.4, cy + pullY * 0.4, baseR * 1.25
       );
-      body.addColorStop(0, "rgba(190,245,255,0.85)");
-      body.addColorStop(0.35, "rgba(56,180,255,0.5)");
-      body.addColorStop(0.75, "rgba(47,107,255,0.22)");
-      body.addColorStop(1, "rgba(20,40,120,0.05)");
+      body.addColorStop(0, "rgba(255,240,220,0.88)");
+      body.addColorStop(0.35, "rgba(255,160,80,0.5)");
+      body.addColorStop(0.75, "rgba(200,95,25,0.2)");
+      body.addColorStop(1, "rgba(46,95,183,0.07)");
       ctx.fillStyle = body;
       ctx.fill();
 
-      // anneaux d'énergie
+      // anneaux d'énergie — orange dominant, un souffle de bleu
       for (let ring = 0; ring < 3; ring++) {
         const phase = (t * 0.5 + ring / 3) % 1;
         const rr = baseR * (1.05 + phase * 1.5);
         ctx.beginPath();
         ctx.arc(cx + pullX * 0.55, cy + pullY * 0.55, rr, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(56,225,255,${(1 - phase) * 0.16})`;
+        ctx.strokeStyle =
+          ring === 1
+            ? `rgba(93,140,224,${(1 - phase) * 0.12})`
+            : `rgba(255,155,69,${(1 - phase) * 0.16})`;
         ctx.lineWidth = 1.2;
         ctx.stroke();
       }
@@ -107,7 +110,7 @@ function EnergySphere() {
           else ctx.lineTo(x, y);
         }
         ctx.closePath();
-        ctx.strokeStyle = `rgba(143,240,255,${0.05 + mouse.active * 0.05})`;
+        ctx.strokeStyle = `rgba(255,192,138,${0.05 + mouse.active * 0.05})`;
         ctx.lineWidth = 0.8;
         ctx.stroke();
       }
@@ -162,8 +165,8 @@ export default function FinalCTA() {
 
         <div className="relative z-10 flex flex-col items-center gap-7 text-center">
           <Reveal>
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-cyan/20 bg-[#05070f]/60 px-4 py-1.5 font-display text-[11px] uppercase tracking-[0.3em] text-cyan-soft backdrop-blur-md">
-              <span className="h-1 w-1 rounded-full bg-cyan shadow-[0_0_8px_#38e1ff]" />
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-ember/20 bg-[#0b0806]/60 px-4 py-1.5 font-display text-[11px] uppercase tracking-[0.3em] text-ember-soft backdrop-blur-md">
+              <span className="h-1 w-1 rounded-full bg-ember shadow-[0_0_8px_#ff9b45]" />
               {dict.cta.eyebrow}
             </span>
           </Reveal>

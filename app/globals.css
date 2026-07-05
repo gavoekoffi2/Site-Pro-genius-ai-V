@@ -2,17 +2,26 @@
 
 /* ————————————————————————————————————————
    Pro Genius AI — Design tokens
+   Identité : orange premium dominant (ember),
+   bleu premium secondaire (azure), blanc, noir profond.
 ———————————————————————————————————————— */
 @theme {
-  --color-void: #030409;
-  --color-abyss: #05070f;
-  --color-ink: #0a0e1a;
-  --color-electric: #2f6bff;
-  --color-electric-soft: #4d82ff;
-  --color-cyan: #38e1ff;
-  --color-cyan-soft: #8ff0ff;
-  --color-mist: #9aa7c7;
-  --color-frost: #e8edfb;
+  --color-void: #070503;
+  --color-abyss: #0b0806;
+  --color-ink: #14100b;
+
+  /* Orange premium légèrement sombre — couleur dominante */
+  --color-ember: #e8761f;
+  --color-ember-soft: #ff9b45;
+  --color-ember-deep: #9c4a12;
+
+  /* Bleu premium légèrement sombre — couleur secondaire */
+  --color-azure: #2e5fb7;
+  --color-azure-soft: #5d8ce0;
+  --color-azure-deep: #1b3a75;
+
+  --color-mist: #b3a89a;
+  --color-frost: #f5efe8;
 
   --font-display: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -22,8 +31,8 @@
 }
 
 :root {
-  --glow-electric: 0 0 40px rgba(47, 107, 255, 0.35), 0 0 120px rgba(47, 107, 255, 0.12);
-  --glow-cyan: 0 0 30px rgba(56, 225, 255, 0.35), 0 0 90px rgba(56, 225, 255, 0.1);
+  --glow-ember: 0 0 40px rgba(232, 118, 31, 0.35), 0 0 120px rgba(232, 118, 31, 0.12);
+  --glow-azure: 0 0 30px rgba(46, 95, 183, 0.35), 0 0 90px rgba(46, 95, 183, 0.1);
 }
 
 html {
@@ -49,7 +58,7 @@ body {
 }
 
 ::selection {
-  background: rgba(56, 225, 255, 0.25);
+  background: rgba(255, 155, 69, 0.28);
   color: #fff;
 }
 
@@ -61,7 +70,7 @@ body {
   background: var(--color-void);
 }
 ::-webkit-scrollbar-thumb {
-  background: #16234a;
+  background: #4a2e16;
   border-radius: 8px;
   border: 2px solid var(--color-void);
 }
@@ -74,15 +83,17 @@ body {
   font-family: var(--font-display);
 }
 
+/* Dégradé signature : blanc → orange (dominant) */
 .text-gradient {
-  background: linear-gradient(100deg, #ffffff 10%, #8ff0ff 45%, #4d82ff 85%);
+  background: linear-gradient(100deg, #ffffff 8%, #ffc08a 42%, #e8761f 85%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.text-gradient-blue {
-  background: linear-gradient(100deg, #4d82ff, #38e1ff);
+/* Dégradé duo : la rencontre orange ↔ bleu, marque de fabrique */
+.text-gradient-duo {
+  background: linear-gradient(100deg, #ff9b45 5%, #e8761f 40%, #5d8ce0 95%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -96,18 +107,18 @@ body {
 }
 
 .glass-deep {
-  background: linear-gradient(160deg, rgba(13, 20, 42, 0.66), rgba(5, 8, 18, 0.72));
-  border: 1px solid rgba(120, 160, 255, 0.12);
+  background: linear-gradient(160deg, rgba(38, 26, 17, 0.6), rgba(12, 8, 5, 0.74));
+  border: 1px solid rgba(232, 150, 80, 0.13);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
 }
 
 .ring-glow {
-  box-shadow: var(--glow-electric);
+  box-shadow: var(--glow-ember);
 }
 
 .hairline {
-  background: linear-gradient(90deg, transparent, rgba(140, 180, 255, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 165, 90, 0.35), rgba(93, 140, 224, 0.2), transparent);
   height: 1px;
 }
 
@@ -122,11 +133,11 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-/* Futuristic grid floor */
+/* Grille futuriste — bleu discret, la profondeur vient du secondaire */
 .grid-veil {
   background-image:
-    linear-gradient(rgba(80, 120, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(80, 120, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(93, 140, 224, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 140, 224, 0.05) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 75%);
@@ -172,7 +183,7 @@ body {
   animation: aurora 24s ease-in-out infinite;
 }
 
-/* Buttons */
+/* Boutons — l'orange est la couleur de l'action */
 .btn-primary {
   position: relative;
   display: inline-flex;
@@ -183,17 +194,17 @@ body {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: 0.01em;
-  color: #04060f;
-  background: linear-gradient(100deg, #8ff0ff, #38e1ff 40%, #4d82ff);
+  color: #1a0d03;
+  background: linear-gradient(100deg, #ffc08a, #ff9b45 35%, #e8761f 70%, #c95f14);
   background-size: 160% 100%;
   transition: background-position 0.5s ease, box-shadow 0.4s ease, transform 0.25s ease;
-  box-shadow: 0 0 0 rgba(56, 225, 255, 0);
+  box-shadow: 0 0 0 rgba(232, 118, 31, 0);
   overflow: hidden;
 }
 
 .btn-primary:hover {
   background-position: 100% 0;
-  box-shadow: var(--glow-cyan);
+  box-shadow: var(--glow-ember);
 }
 
 .btn-ghost {
@@ -206,7 +217,7 @@ body {
   font-family: var(--font-display);
   font-weight: 500;
   color: var(--color-frost);
-  border: 1px solid rgba(150, 185, 255, 0.25);
+  border: 1px solid rgba(255, 175, 110, 0.25);
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
   transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
@@ -214,9 +225,9 @@ body {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(56, 225, 255, 0.6);
-  box-shadow: 0 0 24px rgba(56, 225, 255, 0.15);
-  background: rgba(56, 225, 255, 0.05);
+  border-color: rgba(255, 155, 69, 0.6);
+  box-shadow: 0 0 24px rgba(255, 155, 69, 0.15);
+  background: rgba(255, 155, 69, 0.05);
 }
 
 /* Ripple element injected by MagneticButton */
@@ -238,7 +249,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: var(--color-cyan);
+  color: var(--color-ember-soft);
   font-family: var(--font-display);
   font-size: 0.9rem;
   letter-spacing: 0.04em;

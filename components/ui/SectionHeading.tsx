@@ -16,8 +16,8 @@ export default function SectionHeading({
   return (
     <div className={`flex flex-col gap-6 ${alignCls}`}>
       <Reveal>
-        <span className="inline-flex items-center gap-2.5 rounded-full border border-cyan/20 bg-cyan/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-cyan-soft">
-          <span className="h-1 w-1 rounded-full bg-cyan shadow-[0_0_8px_#38e1ff]" />
+        <span className="inline-flex items-center gap-2.5 rounded-full border border-ember/20 bg-ember/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-ember-soft">
+          <span className="h-1 w-1 rounded-full bg-ember shadow-[0_0_8px_#ff9b45]" />
           {eyebrow}
         </span>
       </Reveal>

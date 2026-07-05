@@ -68,7 +68,7 @@ export default function AboutPage() {
                 Utiliser l'intelligence artificielle pour{" "}
                 <span className="text-frost">augmenter les capacités humaines</span> et permettre aux
                 entreprises africaines de travailler{" "}
-                <span className="text-gradient-blue font-medium">plus vite, plus intelligemment et avec beaucoup plus de puissance</span>.
+                <span className="text-gradient-duo font-medium">plus vite, plus intelligemment et avec beaucoup plus de puissance</span>.
               </p>
             </Reveal>
             <Reveal delay={0.2}>
@@ -94,8 +94,8 @@ export default function AboutPage() {
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {values.map((v, i) => (
             <Reveal key={v.title} delay={i * 0.07}>
-              <div className="glass-deep group h-full rounded-3xl p-8 transition-all duration-500 hover:border-cyan/25 hover:shadow-[0_0_36px_rgba(47,107,255,0.1)]">
-                <span className="glass inline-flex h-12 w-12 items-center justify-center rounded-2xl text-cyan transition-transform duration-500 group-hover:scale-110">
+              <div className="glass-deep group h-full rounded-3xl p-8 transition-all duration-500 hover:border-ember/25 hover:shadow-[0_0_36px_rgba(232,118,31,0.12)]">
+                <span className="glass inline-flex h-12 w-12 items-center justify-center rounded-2xl text-ember transition-transform duration-500 group-hover:scale-110">
                   <v.icon size={21} strokeWidth={1.7} />
                 </span>
                 <h3 className="font-display mt-5 text-xl font-semibold tracking-tight text-frost">{v.title}</h3>

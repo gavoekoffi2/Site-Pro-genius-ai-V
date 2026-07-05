@@ -44,7 +44,7 @@ export default async function ProductPage({
         />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
-            <Link href="/produits" className="link-arrow mb-10 !text-mist hover:!text-cyan">
+            <Link href="/produits" className="link-arrow mb-10 !text-mist hover:!text-ember">
               <ArrowLeft size={15} />
               Tous les produits
             </Link>
@@ -105,9 +105,9 @@ export default async function ProductPage({
         <div className="grid gap-5 sm:grid-cols-2">
           {product.features.map((f, i) => (
             <Reveal key={f} delay={i * 0.07}>
-              <div className="glass flex items-start gap-4 rounded-2xl p-6 transition-colors duration-500 hover:border-cyan/25">
+              <div className="glass flex items-start gap-4 rounded-2xl p-6 transition-colors duration-500 hover:border-ember/25">
                 <span className="glass mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full">
-                  <Check size={13} className="text-cyan" strokeWidth={3} />
+                  <Check size={13} className="text-ember" strokeWidth={3} />
                 </span>
                 <p className="text-sm leading-relaxed text-frost/85">{f}</p>
               </div>

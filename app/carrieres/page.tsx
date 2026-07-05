@@ -32,7 +32,7 @@ export default function CareersPage() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {perks.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.07}>
-              <div className="glass h-full rounded-3xl p-7 transition-colors duration-500 hover:border-cyan/25">
+              <div className="glass h-full rounded-3xl p-7 transition-colors duration-500 hover:border-ember/25">
                 <h2 className="font-display text-lg font-semibold text-frost">{p.title}</h2>
                 <p className="mt-2.5 text-sm leading-relaxed text-mist">{p.text}</p>
               </div>
@@ -53,10 +53,10 @@ export default function CareersPage() {
             <Reveal key={job.slug} delay={i * 0.06}>
               <Link
                 href={`/contact?poste=${job.slug}`}
-                className="glass-deep group flex flex-col gap-4 rounded-3xl p-8 transition-all duration-500 hover:border-cyan/30 hover:shadow-[0_0_36px_rgba(47,107,255,0.1)] md:flex-row md:items-center md:justify-between"
+                className="glass-deep group flex flex-col gap-4 rounded-3xl p-8 transition-all duration-500 hover:border-ember/30 hover:shadow-[0_0_36px_rgba(232,118,31,0.12)] md:flex-row md:items-center md:justify-between"
               >
                 <div className="max-w-2xl">
-                  <span className="font-display text-[10px] uppercase tracking-[0.28em] text-cyan">
+                  <span className="font-display text-[10px] uppercase tracking-[0.28em] text-ember">
                     {job.team}
                   </span>
                   <h3 className="font-display mt-2 text-xl font-semibold tracking-tight text-frost md:text-2xl">
@@ -65,14 +65,14 @@ export default function CareersPage() {
                   <p className="mt-2 text-sm leading-relaxed text-mist">{job.description}</p>
                   <div className="mt-4 flex flex-wrap gap-5 text-xs text-mist/80">
                     <span className="inline-flex items-center gap-1.5">
-                      <MapPin size={13} className="text-cyan" /> {job.location}
+                      <MapPin size={13} className="text-ember" /> {job.location}
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock size={13} className="text-cyan" /> {job.type}
+                      <Clock size={13} className="text-ember" /> {job.type}
                     </span>
                   </div>
                 </div>
-                <span className="glass flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-cyan transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_26px_rgba(56,225,255,0.3)]">
+                <span className="glass flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-ember transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_26px_rgba(255,155,69,0.3)]">
                   <ArrowUpRight size={18} />
                 </span>
               </Link>
@@ -83,7 +83,7 @@ export default function CareersPage() {
         <Reveal delay={0.2}>
           <p className="mt-12 text-center text-sm text-mist">
             Aucun poste ne correspond ? Les grands profils créent leur propre porte :{" "}
-            <Link href="/contact" className="text-cyan underline-offset-4 hover:underline">
+            <Link href="/contact" className="text-ember underline-offset-4 hover:underline">
               candidature spontanée
             </Link>
             .

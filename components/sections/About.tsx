@@ -41,8 +41,8 @@ export default function About() {
       <div className="grid items-center gap-16 lg:grid-cols-2">
         <div className="flex flex-col gap-8">
           <Reveal>
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-cyan/20 bg-cyan/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-cyan-soft">
-              <span className="h-1 w-1 rounded-full bg-cyan shadow-[0_0_8px_#38e1ff]" />
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-ember/20 bg-ember/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-ember-soft">
+              <span className="h-1 w-1 rounded-full bg-ember shadow-[0_0_8px_#ff9b45]" />
               {dict.about.eyebrow}
             </span>
           </Reveal>
@@ -58,8 +58,8 @@ export default function About() {
           <div className="mt-2 flex flex-col gap-4">
             {dict.about.pillars.map((p, i) => (
               <Reveal key={p.title} delay={0.15 + i * 0.12} direction="right">
-                <div className="glass group flex items-start gap-4 rounded-2xl p-5 transition-colors duration-500 hover:border-cyan/30">
-                  <span className="font-display mt-0.5 text-sm font-semibold text-cyan">
+                <div className="glass group flex items-start gap-4 rounded-2xl p-5 transition-colors duration-500 hover:border-ember/30">
+                  <span className="font-display mt-0.5 text-sm font-semibold text-ember">
                     0{i + 1}
                   </span>
                   <div>
@@ -77,7 +77,7 @@ export default function About() {
             <DigitalGlobe />
             <div
               className="pointer-events-none absolute inset-0 animate-[pulse-soft_6s_ease-in-out_infinite] rounded-full"
-              style={{ boxShadow: "inset 0 0 80px rgba(47,107,255,0.06)" }}
+              style={{ boxShadow: "inset 0 0 80px rgba(232,118,31,0.05)" }}
               aria-hidden
             />
           </div>

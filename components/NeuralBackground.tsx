@@ -45,7 +45,8 @@ export default function NeuralBackground() {
         vx: (Math.random() - 0.5) * 0.18,
         vy: (Math.random() - 0.5) * 0.18,
         r: Math.random() * 1.4 + 0.5,
-        hue: Math.random() > 0.35 ? 222 : 190,
+        // orange dominant, bleu secondaire
+        hue: Math.random() > 0.38 ? 28 : 222,
       }));
     };
 
@@ -77,7 +78,7 @@ export default function NeuralBackground() {
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < LINK) {
             const alpha = (1 - d / LINK) * 0.09;
-            ctx.strokeStyle = `hsla(215, 90%, 65%, ${alpha})`;
+            ctx.strokeStyle = `hsla(28, 70%, 58%, ${alpha})`;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -87,7 +88,7 @@ export default function NeuralBackground() {
       }
 
       for (const n of nodes) {
-        ctx.fillStyle = `hsla(${n.hue}, 95%, 70%, 0.35)`;
+        ctx.fillStyle = `hsla(${n.hue}, ${n.hue === 28 ? 92 : 70}%, ${n.hue === 28 ? 62 : 66}%, 0.35)`;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fill();

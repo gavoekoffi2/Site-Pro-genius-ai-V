@@ -6,7 +6,7 @@ export default function NotFound() {
     <section className="relative z-10 flex min-h-screen flex-col items-center justify-center gap-8 px-5 text-center">
       <div
         className="animate-aurora pointer-events-none absolute left-1/2 top-1/2 h-[60vmin] w-[90vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{ background: "radial-gradient(ellipse, rgba(47,107,255,0.12), transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse, rgba(224,118,40,0.12), rgba(46,95,183,0.05) 50%, transparent 72%)" }}
         aria-hidden
       />
       <p className="font-display relative text-[9rem] font-semibold leading-none text-gradient md:text-[13rem]">

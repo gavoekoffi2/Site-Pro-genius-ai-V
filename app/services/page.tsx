@@ -30,9 +30,9 @@ export default function ServicesPage() {
               <TiltCard className="h-full rounded-3xl">
                 <Link
                   href={`/services/${s.slug}`}
-                  className="glass-deep group flex h-full flex-col gap-5 rounded-3xl p-9 transition-colors duration-500 hover:border-cyan/25"
+                  className="glass-deep group flex h-full flex-col gap-5 rounded-3xl p-9 transition-colors duration-500 hover:border-ember/25"
                 >
-                  <span className="glass inline-flex h-13 w-13 items-center justify-center rounded-2xl p-3.5 text-cyan transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_26px_rgba(56,225,255,0.25)]">
+                  <span className="glass inline-flex h-13 w-13 items-center justify-center rounded-2xl p-3.5 text-ember transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_26px_rgba(255,155,69,0.25)]">
                     <ServiceIcon name={s.icon} />
                   </span>
                   <h2 className="font-display text-2xl font-semibold tracking-tight text-frost">{s.name}</h2>

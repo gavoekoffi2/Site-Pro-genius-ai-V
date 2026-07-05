@@ -20,7 +20,7 @@ export default function Tech() {
         {technologies.map((t, i) => (
           <Reveal key={t} delay={i * 0.04}>
             <span
-              className="glass inline-block cursor-default rounded-full px-6 py-3 font-display text-sm text-frost/75 transition-all duration-500 hover:-translate-y-1.5 hover:border-cyan/50 hover:text-frost hover:shadow-[0_0_28px_rgba(56,225,255,0.28)]"
+              className="glass inline-block cursor-default rounded-full px-6 py-3 font-display text-sm text-frost/75 transition-all duration-500 hover:-translate-y-1.5 hover:border-ember/50 hover:text-frost hover:shadow-[0_0_28px_rgba(255,155,69,0.28)]"
               style={{
                 animation: `float ${7 + (i % 5) * 1.4}s ease-in-out ${i * 0.35}s infinite`,
                 fontSize: i % 4 === 0 ? "1.05rem" : i % 3 === 0 ? "0.85rem" : "0.95rem",

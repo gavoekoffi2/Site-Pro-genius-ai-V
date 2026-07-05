@@ -37,7 +37,7 @@ export default async function BlogPostPage({
     <>
       <article className="relative z-10 mx-auto max-w-3xl px-5 pb-24 pt-40 md:px-8 md:pt-52">
         <Reveal>
-          <Link href="/blog" className="link-arrow !text-mist hover:!text-cyan">
+          <Link href="/blog" className="link-arrow !text-mist hover:!text-ember">
             <ArrowLeft size={15} />
             Tous les articles
           </Link>
@@ -45,7 +45,7 @@ export default async function BlogPostPage({
 
         <Reveal delay={0.08}>
           <div className="mt-10 flex flex-wrap items-center gap-4 font-display text-[11px] uppercase tracking-[0.26em] text-mist/70">
-            <span className="rounded-full border border-cyan/25 bg-cyan/5 px-3 py-1 text-cyan">
+            <span className="rounded-full border border-ember/25 bg-ember/5 px-3 py-1 text-ember">
               {post.category}
             </span>
             <span>{formatDate(post.date)}</span>
@@ -61,7 +61,7 @@ export default async function BlogPostPage({
         </Reveal>
 
         <Reveal delay={0.2}>
-          <p className="mt-6 border-l-2 border-cyan/40 pl-5 font-display text-lg leading-relaxed text-frost/80">
+          <p className="mt-6 border-l-2 border-ember/40 pl-5 font-display text-lg leading-relaxed text-frost/80">
             {post.excerpt}
           </p>
         </Reveal>

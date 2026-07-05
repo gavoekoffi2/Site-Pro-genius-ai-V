@@ -6,12 +6,12 @@ import TiltCard from "@/components/ui/TiltCard";
 const dict = getDictionary();
 
 const avatarGradients = [
-  "from-[#38e1ff] to-[#2f6bff]",
-  "from-[#b06bff] to-[#4d82ff]",
-  "from-[#22d3a5] to-[#38e1ff]",
-  "from-[#ffb648] to-[#ff6b6b]",
-  "from-[#4d82ff] to-[#38e1ff]",
-  "from-[#ff6b9d] to-[#b06bff]",
+  "from-[#ff9b45] to-[#c95f14]",
+  "from-[#5d8ce0] to-[#2e5fb7]",
+  "from-[#ffb066] to-[#5d8ce0]",
+  "from-[#2e5fb7] to-[#e8761f]",
+  "from-[#ffc061] to-[#e05a1a]",
+  "from-[#e8761f] to-[#1b3a75]",
 ];
 
 export default function Team() {
@@ -27,7 +27,7 @@ export default function Team() {
                 {/* Fond animé de la carte */}
                 <div
                   className="animate-aurora pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
-                  style={{ background: "radial-gradient(circle, rgba(56,225,255,0.16), transparent 70%)" }}
+                  style={{ background: "radial-gradient(circle, rgba(255,155,69,0.16), transparent 70%)" }}
                   aria-hidden
                 />
 
@@ -47,7 +47,7 @@ export default function Team() {
                 <h3 className="font-display mt-6 text-xl font-semibold tracking-tight text-frost">
                   {m.name}
                 </h3>
-                <p className="font-display mt-1 text-sm text-cyan">{m.role}</p>
+                <p className="font-display mt-1 text-sm text-ember">{m.role}</p>
                 <p className="mt-3 text-sm leading-relaxed text-mist">{m.focus}</p>
               </div>
             </TiltCard>

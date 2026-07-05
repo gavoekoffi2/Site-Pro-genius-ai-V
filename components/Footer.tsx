@@ -55,7 +55,7 @@ export default function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-sm text-frost/70 transition-colors duration-300 hover:text-cyan"
+                      className="text-sm text-frost/70 transition-colors duration-300 hover:text-ember"
                     >
                       {l.label}
                     </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
         <div className="mt-7 flex flex-col items-center justify-between gap-3 text-xs text-mist/60 md:flex-row">
           <p>© {new Date().getFullYear()} Pro Genius AI. {dict.footer.rights}</p>
           <p className="inline-flex items-center gap-2">
-            <span className="h-1 w-1 rounded-full bg-cyan shadow-[0_0_6px_#38e1ff]" />
+            <span className="h-1 w-1 rounded-full bg-ember shadow-[0_0_6px_#ff9b45]" />
             {dict.footer.madeIn}
           </p>
         </div>

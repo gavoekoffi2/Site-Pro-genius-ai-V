@@ -254,9 +254,9 @@ function Shockwave({ progress }: SceneRefs) {
     const ctx = c.getContext("2d");
     if (ctx) {
       const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-      g.addColorStop(0, "rgba(210,245,255,1)");
-      g.addColorStop(0.25, "rgba(120,200,255,0.55)");
-      g.addColorStop(0.6, "rgba(60,120,255,0.16)");
+      g.addColorStop(0, "rgba(255,242,225,1)");
+      g.addColorStop(0.25, "rgba(255,180,105,0.55)");
+      g.addColorStop(0.6, "rgba(230,120,40,0.16)");
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, 256, 256);
@@ -299,11 +299,11 @@ function Shockwave({ progress }: SceneRefs) {
       </mesh>
       <mesh ref={ring}>
         <ringGeometry args={[0.46, 0.5, 80]} />
-        <meshBasicMaterial color="#38e1ff" transparent opacity={0} depthWrite={false} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color="#ff9b45" transparent opacity={0} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
       <mesh ref={ring2} rotation={[0.5, 0.3, 0]}>
         <ringGeometry args={[0.47, 0.49, 80]} />
-        <meshBasicMaterial color="#4d82ff" transparent opacity={0} depthWrite={false} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color="#5d8ce0" transparent opacity={0} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
     </group>
   );
@@ -338,12 +338,12 @@ export default function HandsScene({ progress }: SceneRefs) {
     >
       <CameraRig />
 
-      {/* Main humaine — chaleur organique */}
+      {/* Main humaine — chaleur organique, l'orange de la marque */}
       <ParticleHand
         mirror={false}
         grid={false}
         colorA="#ffffff"
-        colorB="#ffd9a8"
+        colorB="#ffab5e"
         amp={0.018}
         size={isMobile ? 13 : 15}
         count={humanCount}
@@ -353,12 +353,12 @@ export default function HandsScene({ progress }: SceneRefs) {
         progress={progress}
       />
 
-      {/* Main androïde — précision numérique */}
+      {/* Main androïde — précision numérique, le bleu secondaire */}
       <ParticleHand
         mirror={true}
         grid={true}
-        colorA="#38e1ff"
-        colorB="#2f6bff"
+        colorA="#5d8ce0"
+        colorB="#2e5fb7"
         amp={0.007}
         size={isMobile ? 12 : 14}
         count={robotCount}
@@ -372,7 +372,7 @@ export default function HandsScene({ progress }: SceneRefs) {
         <Shockwave progress={progress} />
       </group>
 
-      <Sparkles count={isMobile ? 40 : 90} scale={[9, 5, 3]} size={1.6} speed={0.25} opacity={0.35} color="#8ff0ff" />
+      <Sparkles count={isMobile ? 40 : 90} scale={[9, 5, 3]} size={1.6} speed={0.25} opacity={0.35} color="#ffc08a" />
     </Canvas>
   );
 }

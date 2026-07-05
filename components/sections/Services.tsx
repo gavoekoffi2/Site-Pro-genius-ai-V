@@ -28,17 +28,17 @@ function Orbit() {
       {/* Anneaux */}
       <div className="absolute inset-[9%] rounded-full border border-white/[0.07]" />
       <div className="absolute inset-[26%] rounded-full border border-white/[0.09]" />
-      <div className="absolute inset-[26%] rounded-full border border-cyan/10 blur-[1px]" />
+      <div className="absolute inset-[26%] rounded-full border border-ember/10 blur-[1px]" />
 
       {/* Cœur — le cerveau IA */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="relative flex h-36 w-36 items-center justify-center rounded-full">
           <div
             className="absolute inset-0 animate-[pulse-soft_4s_ease-in-out_infinite] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(56,225,255,0.2), rgba(47,107,255,0.08) 55%, transparent 75%)" }}
+            style={{ background: "radial-gradient(circle, rgba(255,155,69,0.2), rgba(46,95,183,0.08) 55%, transparent 75%)" }}
           />
           <div className="glass-deep relative flex h-24 w-24 items-center justify-center rounded-full ring-glow">
-            <BrainCircuit size={40} className="text-cyan" strokeWidth={1.4} />
+            <BrainCircuit size={40} className="text-ember" strokeWidth={1.4} />
           </div>
         </div>
       </div>
@@ -86,9 +86,9 @@ function OrbitNode({ name, slug }: { name: string; slug: string }) {
   return (
     <Link
       href={`/services/${slug}`}
-      className="glass-deep group flex items-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 font-display text-sm text-frost/85 transition-all duration-400 hover:border-cyan/50 hover:text-frost hover:shadow-[0_0_26px_rgba(56,225,255,0.2)]"
+      className="glass-deep group flex items-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 font-display text-sm text-frost/85 transition-all duration-400 hover:border-ember/50 hover:text-frost hover:shadow-[0_0_26px_rgba(255,155,69,0.2)]"
     >
-      <span className="h-1.5 w-1.5 rounded-full bg-cyan shadow-[0_0_8px_#38e1ff] transition-transform duration-400 group-hover:scale-125" />
+      <span className="h-1.5 w-1.5 rounded-full bg-ember shadow-[0_0_8px_#ff9b45] transition-transform duration-400 group-hover:scale-125" />
       {name}
     </Link>
   );
@@ -109,13 +109,13 @@ export default function Services() {
           <Reveal key={s.slug} delay={i * 0.06}>
             <Link
               href={`/services/${s.slug}`}
-              className="glass flex items-center justify-between gap-3 rounded-2xl p-5 transition-colors hover:border-cyan/30"
+              className="glass flex items-center justify-between gap-3 rounded-2xl p-5 transition-colors hover:border-ember/30"
             >
               <div>
                 <h3 className="font-display font-medium text-frost">{s.name}</h3>
                 <p className="mt-1 text-sm text-mist">{s.short}</p>
               </div>
-              <ArrowUpRight size={17} className="shrink-0 text-cyan" />
+              <ArrowUpRight size={17} className="shrink-0 text-ember" />
             </Link>
           </Reveal>
         ))}

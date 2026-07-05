@@ -14,15 +14,15 @@ export default function PageHero({
     <header className="relative overflow-hidden pb-16 pt-40 md:pb-24 md:pt-52">
       <div
         className="animate-aurora pointer-events-none absolute left-1/2 top-0 h-[60vmin] w-[100vmin] -translate-x-1/2 -translate-y-1/3 rounded-full"
-        style={{ background: "radial-gradient(ellipse, rgba(47,107,255,0.13), rgba(56,225,255,0.04) 45%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse, rgba(224,118,40,0.13), rgba(46,95,183,0.05) 48%, transparent 70%)" }}
         aria-hidden
       />
       <div className="grid-veil pointer-events-none absolute inset-0" aria-hidden />
 
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-6 px-5 text-center md:px-8">
         <Reveal>
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-cyan/20 bg-cyan/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-cyan-soft">
-            <span className="h-1 w-1 rounded-full bg-cyan shadow-[0_0_8px_#38e1ff]" />
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-ember/20 bg-ember/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-ember-soft">
+            <span className="h-1 w-1 rounded-full bg-ember shadow-[0_0_8px_#ff9b45]" />
             {eyebrow}
           </span>
         </Reveal>

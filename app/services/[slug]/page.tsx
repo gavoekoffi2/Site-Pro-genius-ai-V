@@ -40,18 +40,18 @@ export default async function ServicePage({
       <header className="relative overflow-hidden pb-16 pt-40 md:pb-20 md:pt-52">
         <div
           className="animate-aurora pointer-events-none absolute left-1/2 top-0 h-[60vmin] w-[100vmin] -translate-x-1/2 -translate-y-1/3 rounded-full"
-          style={{ background: "radial-gradient(ellipse, rgba(47,107,255,0.14), transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, rgba(224,118,40,0.14), rgba(46,95,183,0.05) 50%, transparent 72%)" }}
           aria-hidden
         />
         <div className="relative mx-auto max-w-4xl px-5 text-center md:px-8">
           <Reveal>
-            <Link href="/services" className="link-arrow mb-10 inline-flex !text-mist hover:!text-cyan">
+            <Link href="/services" className="link-arrow mb-10 inline-flex !text-mist hover:!text-ember">
               <ArrowLeft size={15} />
               Tous les services
             </Link>
           </Reveal>
           <Reveal delay={0.08}>
-            <span className="glass mx-auto mt-8 flex h-16 w-16 items-center justify-center rounded-2xl text-cyan ring-glow">
+            <span className="glass mx-auto mt-8 flex h-16 w-16 items-center justify-center rounded-2xl text-ember ring-glow">
               <ServiceIcon name={service.icon} size={28} />
             </span>
           </Reveal>
@@ -80,9 +80,9 @@ export default async function ServicePage({
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {service.deliverables.map((d, i) => (
             <Reveal key={d} delay={i * 0.07}>
-              <div className="glass flex items-start gap-4 rounded-2xl p-6 transition-colors duration-500 hover:border-cyan/25">
+              <div className="glass flex items-start gap-4 rounded-2xl p-6 transition-colors duration-500 hover:border-ember/25">
                 <span className="glass mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full">
-                  <Check size={13} className="text-cyan" strokeWidth={3} />
+                  <Check size={13} className="text-ember" strokeWidth={3} />
                 </span>
                 <p className="text-sm leading-relaxed text-frost/85">{d}</p>
               </div>

@@ -7,7 +7,9 @@ Site vitrine de **Pro Genius AI**, startup africaine spécialisée en intelligen
 ## Stack
 
 - **Next.js 15** (App Router, Turbopack) + **React 19** + **TypeScript**
-- **Tailwind CSS 4** — design system sur mesure (fond quasi noir, bleu électrique, cyan, glassmorphism)
+- **Tailwind CSS 4** — design system sur mesure : orange premium dominant (« ember »),
+  bleu premium secondaire (« azure »), blanc, noir profond chaud, dégradés orange ↔ bleu,
+  glassmorphism subtil
 - **Three.js + React Three Fiber + Drei** — scène du hero (mains humain/androïde en particules)
 - **GSAP + ScrollTrigger** — narration au scroll, hero épinglé
 - **Framer Motion** — reveals, micro-animations, compteurs

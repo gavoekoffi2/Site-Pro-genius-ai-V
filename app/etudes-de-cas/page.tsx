@@ -23,9 +23,9 @@ export default function CaseStudiesPage() {
         <div className="flex flex-col gap-10">
           {caseStudies.map((c) => (
             <Reveal key={c.slug} delay={0.05}>
-              <article className="glass-deep group overflow-hidden rounded-3xl transition-all duration-500 hover:border-cyan/20 hover:shadow-[0_0_50px_rgba(47,107,255,0.08)]">
+              <article className="glass-deep group overflow-hidden rounded-3xl transition-all duration-500 hover:border-ember/20 hover:shadow-[0_0_50px_rgba(232,118,31,0.1)]">
                 <div className="p-9 md:p-12">
-                  <span className="font-display text-[11px] uppercase tracking-[0.3em] text-cyan">
+                  <span className="font-display text-[11px] uppercase tracking-[0.3em] text-ember">
                     {c.sector}
                   </span>
                   <h2 className="font-display mt-4 text-balance text-2xl font-semibold tracking-tight text-frost md:text-4xl">
@@ -50,7 +50,7 @@ export default function CaseStudiesPage() {
 
                 <div className="grid grid-cols-3 gap-px border-t border-white/[0.06] bg-white/[0.03]">
                   {c.results.map((r, ri) => (
-                    <div key={ri} className="bg-[#05070f]/85 p-6 text-center md:p-8">
+                    <div key={ri} className="bg-[#0b0806]/85 p-6 text-center md:p-8">
                       <p className="font-display text-2xl font-semibold text-gradient md:text-4xl">{r.value}</p>
                       <p className="mt-2 text-xs leading-snug text-mist md:text-sm">{r.label}</p>
                     </div>

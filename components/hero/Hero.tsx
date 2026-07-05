@@ -88,7 +88,7 @@ export default function Hero() {
         {/* Halo ambiant derrière la scène */}
         <div
           className="animate-aurora pointer-events-none absolute left-1/2 top-1/2 h-[80vmin] w-[110vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60"
-          style={{ background: "radial-gradient(ellipse, rgba(47,107,255,0.14), rgba(56,225,255,0.05) 45%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, rgba(232,118,31,0.13), rgba(46,95,183,0.06) 48%, transparent 70%)" }}
           aria-hidden
         />
         <div className="grid-veil pointer-events-none absolute inset-0" aria-hidden />
@@ -104,7 +104,7 @@ export default function Hero() {
         <div
           ref={flash}
           className="pointer-events-none absolute inset-0 opacity-0"
-          style={{ background: "radial-gradient(circle at 50% 45%, rgba(190,240,255,0.9), rgba(56,140,255,0.35) 40%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle at 50% 45%, rgba(255,235,210,0.92), rgba(255,150,60,0.38) 40%, transparent 70%)" }}
           aria-hidden
         />
 
@@ -112,10 +112,10 @@ export default function Hero() {
         <div ref={intro} className="relative z-10 flex h-full flex-col items-center justify-between py-28 text-center md:py-32">
           <div className="flex flex-col items-center gap-6 px-5">
             <span
-              className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 font-display text-[11px] uppercase tracking-[0.3em] text-cyan-soft"
+              className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 font-display text-[11px] uppercase tracking-[0.3em] text-ember-soft"
               style={{ opacity: 0, animation: "heroFade 1.2s cubic-bezier(0.22,1,0.36,1) 2.5s both" }}
             >
-              <span className="h-1 w-1 rounded-full bg-cyan shadow-[0_0_8px_#38e1ff]" />
+              <span className="h-1 w-1 rounded-full bg-ember shadow-[0_0_8px_#ff9b45]" />
               {dict.hero.eyebrow}
             </span>
             <h1
@@ -132,7 +132,7 @@ export default function Hero() {
           >
             <span className="font-display text-[11px] uppercase tracking-[0.35em]">{dict.hero.scrollHint}</span>
             <span className="flex h-10 w-6 items-start justify-center rounded-full border border-white/15 p-1.5">
-              <ArrowDown size={12} className="animate-bounce text-cyan" />
+              <ArrowDown size={12} className="animate-bounce text-ember" />
             </span>
           </div>
         </div>

@@ -36,7 +36,7 @@ export default function SolutionsPage() {
                     {a.points.map((p) => (
                       <li key={p} className="flex items-start gap-3 text-sm text-frost/80">
                         <span className="glass mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full">
-                          <Check size={11} className="text-cyan" strokeWidth={3} />
+                          <Check size={11} className="text-ember" strokeWidth={3} />
                         </span>
                         {p}
                       </li>

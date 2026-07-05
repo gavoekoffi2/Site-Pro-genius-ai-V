@@ -32,15 +32,15 @@ export default function ContactPage() {
                 </h2>
                 <a
                   href={`mailto:${dict.contact.direct.email}`}
-                  className="mt-5 flex items-center gap-3.5 text-frost transition-colors hover:text-cyan"
+                  className="mt-5 flex items-center gap-3.5 text-frost transition-colors hover:text-ember"
                 >
-                  <span className="glass flex h-11 w-11 items-center justify-center rounded-full text-cyan">
+                  <span className="glass flex h-11 w-11 items-center justify-center rounded-full text-ember">
                     <Mail size={17} />
                   </span>
                   <span className="font-display">{dict.contact.direct.email}</span>
                 </a>
                 <p className="mt-5 flex items-start gap-3.5 text-sm leading-relaxed text-mist">
-                  <span className="glass flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-cyan">
+                  <span className="glass flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ember">
                     <MapPin size={17} />
                   </span>
                   {dict.contact.direct.location}
@@ -52,7 +52,7 @@ export default function ContactPage() {
               <div className="glass-deep relative overflow-hidden rounded-3xl p-8">
                 <div
                   className="animate-aurora pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full blur-3xl"
-                  style={{ background: "radial-gradient(circle, rgba(56,225,255,0.13), transparent 70%)" }}
+                  style={{ background: "radial-gradient(circle, rgba(255,155,69,0.13), transparent 70%)" }}
                   aria-hidden
                 />
                 <p className="font-display relative text-lg leading-relaxed text-frost/90">

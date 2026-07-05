@@ -9,7 +9,7 @@ import { useRef, type MouseEvent, type ReactNode } from "react";
 export default function TiltCard({
   children,
   className = "",
-  glowColor = "rgba(56, 225, 255, 0.14)",
+  glowColor = "rgba(255, 155, 69, 0.14)",
 }: {
   children: ReactNode;
   className?: string;

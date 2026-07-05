@@ -32,10 +32,10 @@ export default function BlogPage() {
           <TiltCard className="rounded-3xl">
             <Link
               href={`/blog/${featured.slug}`}
-              className="glass-deep group block overflow-hidden rounded-3xl p-9 transition-colors duration-500 hover:border-cyan/25 md:p-14"
+              className="glass-deep group block overflow-hidden rounded-3xl p-9 transition-colors duration-500 hover:border-ember/25 md:p-14"
             >
               <div className="flex flex-wrap items-center gap-4 font-display text-[11px] uppercase tracking-[0.26em] text-mist/70">
-                <span className="rounded-full border border-cyan/25 bg-cyan/5 px-3 py-1 text-cyan">
+                <span className="rounded-full border border-ember/25 bg-ember/5 px-3 py-1 text-ember">
                   {featured.category}
                 </span>
                 <span>{formatDate(featured.date)}</span>
@@ -60,10 +60,10 @@ export default function BlogPage() {
               <TiltCard className="h-full rounded-3xl">
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="glass-deep group flex h-full flex-col gap-4 rounded-3xl p-8 transition-colors duration-500 hover:border-cyan/25"
+                  className="glass-deep group flex h-full flex-col gap-4 rounded-3xl p-8 transition-colors duration-500 hover:border-ember/25"
                 >
                   <div className="flex flex-wrap items-center gap-3 font-display text-[10px] uppercase tracking-[0.24em] text-mist/70">
-                    <span className="rounded-full border border-cyan/25 bg-cyan/5 px-2.5 py-0.5 text-cyan">
+                    <span className="rounded-full border border-ember/25 bg-ember/5 px-2.5 py-0.5 text-ember">
                       {post.category}
                     </span>
                     <span>{post.readTime}</span>

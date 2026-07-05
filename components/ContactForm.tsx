@@ -9,7 +9,7 @@ const dict = getDictionary();
 const f = dict.contact.form;
 
 const inputCls =
-  "w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3.5 text-sm text-frost placeholder:text-mist/50 outline-none backdrop-blur-md transition-all duration-300 focus:border-cyan/50 focus:bg-cyan/[0.03] focus:shadow-[0_0_24px_rgba(56,225,255,0.08)]";
+  "w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3.5 text-sm text-frost placeholder:text-mist/50 outline-none backdrop-blur-md transition-all duration-300 focus:border-ember/50 focus:bg-ember/[0.03] focus:shadow-[0_0_24px_rgba(255,155,69,0.08)]";
 
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
@@ -29,7 +29,7 @@ export default function ContactForm() {
     <div className="glass-deep relative overflow-hidden rounded-3xl p-8 md:p-10">
       <div
         className="animate-aurora pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(47,107,255,0.14), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(232,118,31,0.14), transparent 70%)" }}
         aria-hidden
       />
 
@@ -41,7 +41,7 @@ export default function ContactForm() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex min-h-[380px] flex-col items-center justify-center gap-5 text-center"
           >
-            <span className="glass flex h-16 w-16 items-center justify-center rounded-full text-cyan ring-glow">
+            <span className="glass flex h-16 w-16 items-center justify-center rounded-full text-ember ring-glow">
               <CheckCircle2 size={28} />
             </span>
             <p className="font-display max-w-sm text-lg text-frost">{f.success}</p>

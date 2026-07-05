@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /**
  * Planète numérique en canvas 2D : sphère de points en rotation lente,
- * l'Afrique mise en lumière en cyan au centre du regard.
+ * l'Afrique mise en lumière en ember au centre du regard.
  */
 
 // Contour simplifié de l'Afrique (lat, lon)
@@ -74,8 +74,8 @@ export default function DigitalGlobe() {
 
       // halo
       const halo = ctx.createRadialGradient(cx, cy, R * 0.5, cx, cy, R * 1.35);
-      halo.addColorStop(0, "rgba(47,107,255,0.10)");
-      halo.addColorStop(1, "rgba(47,107,255,0)");
+      halo.addColorStop(0, "rgba(46,95,183,0.10)");
+      halo.addColorStop(1, "rgba(46,95,183,0)");
       ctx.fillStyle = halo;
       ctx.fillRect(0, 0, SIZE, SIZE);
 
@@ -98,8 +98,8 @@ export default function DigitalGlobe() {
         const py = cy - y2 * R;
 
         if (d.africa) {
-          ctx.fillStyle = `rgba(56, 225, 255, ${0.25 + depth * 0.75})`;
-          ctx.shadowColor = "rgba(56,225,255,0.8)";
+          ctx.fillStyle = `rgba(255, 155, 69, ${0.25 + depth * 0.75})`;
+          ctx.shadowColor = "rgba(255,155,69,0.8)";
           ctx.shadowBlur = 6 * depth;
           ctx.beginPath();
           ctx.arc(px, py, 1.5 + depth * 1.3, 0, Math.PI * 2);
