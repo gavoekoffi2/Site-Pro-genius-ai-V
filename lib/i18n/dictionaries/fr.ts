@@ -98,12 +98,12 @@ const fr = {
 
   stats: {
     eyebrow: "En chiffres",
-    title: "La puissance, mesurée.",
+    title: "Un écosystème concret, une ambition continentale.",
     items: [
-      { value: 12, suffix: "+", label: "Produits & solutions IA dans l'écosystème" },
-      { value: 120, suffix: "+", label: "Automatisations déployées en production" },
-      { value: 8, suffix: "", label: "Pays africains touchés par nos solutions" },
-      { value: 98, suffix: "%", label: "De clients qui recommandent Pro Genius AI" },
+      { value: 5, suffix: "", label: "Produits IA réunis dans notre écosystème" },
+      { value: 8, suffix: "", label: "Expertises proposées aux organisations" },
+      { value: 1, suffix: "", label: "Écosystème intégré au service de l'Afrique" },
+      { value: 100, suffix: "%", label: "Une vision centrée sur le potentiel humain" },
     ],
   },
 
@@ -114,15 +114,18 @@ const fr = {
 
   team: {
     eyebrow: "L'équipe",
-    title: "Des humains augmentés, au service des vôtres.",
-    sub: "Ingénieurs, designers et stratèges unis par une même obsession : l'excellence.",
-    members: [
-      { initials: "GA", name: "Gavo E.", role: "Fondateur & CEO", focus: "Vision, produit & stratégie IA" },
-      { initials: "KD", name: "Kofi D.", role: "Head of AI Engineering", focus: "Agents IA & architectures LLM" },
-      { initials: "AS", name: "Awa S.", role: "Lead Product Designer", focus: "Design systems & expériences immersives" },
-      { initials: "MT", name: "Malik T.", role: "Head of Automation", focus: "Automatisations & intégrations n8n" },
-      { initials: "NB", name: "Nadia B.", role: "Voice AI Lead", focus: "Solutions vocales & téléphonie IA" },
-      { initials: "YK", name: "Yann K.", role: "Head of Growth", focus: "Partenariats & expansion continentale" },
+    title: "Une vision portée par des bâtisseurs.",
+    sub: "Pro Genius AI orchestre produit, ingénierie et stratégie pour transformer des besoins africains réels en solutions IA utiles.",
+    founder: {
+      initials: "KG",
+      name: "Koffi GAVOE",
+      role: "Fondateur & CEO, Pro Genius AI",
+      focus: "Vision, stratégie produit et développement d'un écosystème IA conçu en Afrique pour rayonner au-delà du continent.",
+    },
+    expertise: [
+      { number: "01", title: "Produit & design", text: "Des expériences simples, premium et pensées autour des usages réels." },
+      { number: "02", title: "Ingénierie IA", text: "Agents, voix, automatisations et plateformes développés comme un même système." },
+      { number: "03", title: "Déploiement terrain", text: "Une approche pragmatique : partir du problème, livrer, mesurer et améliorer." },
     ],
   },
 

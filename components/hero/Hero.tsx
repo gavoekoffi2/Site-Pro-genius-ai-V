@@ -94,7 +94,7 @@ export default function Hero() {
         <div className="grid-veil pointer-events-none absolute inset-0" aria-hidden />
 
         {/* Scène 3D */}
-        {mounted && !reduced && (
+        {mounted && (
           <div className="absolute inset-0">
             <HandsScene progress={progress} />
           </div>

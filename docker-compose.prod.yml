@@ -1,0 +1,30 @@
+services:
+  progenius-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: progenius-ai
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: web
+      traefik.http.routers.progenius-ai.entrypoints: websecure
+      traefik.http.routers.progenius-ai.rule: Host(`progeniusai.76.13.129.252.sslip.io`)
+      traefik.http.routers.progenius-ai.tls: "true"
+      traefik.http.routers.progenius-ai.tls.certresolver: letsencrypt
+      traefik.http.services.progenius-ai.loadbalancer.server.port: "3000"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
