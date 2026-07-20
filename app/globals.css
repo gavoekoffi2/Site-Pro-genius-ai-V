@@ -270,6 +270,47 @@ body {
   will-change: transform;
 }
 
+/* ——— Hero / AI operating-system overlays ——— */
+.hero-hud-corner { position: absolute; width: 76px; height: 76px; opacity: .3; }
+.hero-hud-corner--tl { left: 28px; top: 106px; border-left: 1px solid #71d9d0; border-top: 1px solid #71d9d0; }
+.hero-hud-corner--tr { right: 28px; top: 106px; border-right: 1px solid #71d9d0; border-top: 1px solid #71d9d0; }
+.hero-hud-corner--bl { left: 28px; bottom: 64px; border-left: 1px solid #71d9d0; border-bottom: 1px solid #71d9d0; }
+.hero-hud-corner--br { right: 28px; bottom: 64px; border-right: 1px solid #71d9d0; border-bottom: 1px solid #71d9d0; }
+.hero-signal span { animation: hero-signal 3.2s ease-in-out infinite; }
+@keyframes hero-signal { 0% { transform: translateX(-110%); opacity: 0; } 25%,65% { opacity: 1; } 100% { transform: translateX(220%); opacity: 0; } }
+@keyframes hud-scan { 0%,100% { transform: translateY(-9px); opacity: .25; } 50% { transform: translateY(9px); opacity: 1; } }
+
+/* Chaque réalisation IA reçoit un langage visuel vivant différent. */
+.ai-telemetry { --ai-accent:#83e8dd; opacity:.52; transition:opacity .65s ease; mix-blend-mode:screen; }
+.group:hover .ai-telemetry { opacity:.94; }
+.ai-corner { position:absolute; width:22px; height:22px; border-color:var(--ai-accent); opacity:.58; }
+.ai-corner--tl { left:14px; top:54px; border-left:1px solid; border-top:1px solid; }
+.ai-corner--tr { right:14px; top:54px; border-right:1px solid; border-top:1px solid; }
+.ai-corner--bl { left:14px; bottom:14px; border-left:1px solid; border-bottom:1px solid; }
+.ai-corner--br { right:14px; bottom:14px; border-right:1px solid; border-bottom:1px solid; }
+.ai-scan-line { position:absolute; left:0; right:0; top:17%; height:1px; background:linear-gradient(90deg,transparent,var(--ai-accent),transparent); box-shadow:0 0 16px rgba(111,231,218,.8); animation:project-scan 4.8s cubic-bezier(.4,0,.2,1) infinite; }
+.ai-telemetry--1 .ai-scan-line { animation-duration:6.2s; animation-direction:alternate-reverse; }
+.ai-telemetry--2 .ai-scan-line { animation-duration:3.9s; }
+@keyframes project-scan { 0% { transform:translateY(0); opacity:0; } 15% { opacity:.8; } 85% { opacity:.55; } 100% { transform:translateY(270px); opacity:0; } }
+.ai-reticle { position:absolute; left:50%; top:48%; width:68px; height:68px; transform:translate(-50%,-50%); border:1px solid rgba(131,232,221,.24); border-radius:50%; animation:ai-reticle 8s linear infinite; }
+.ai-reticle::before,.ai-reticle::after { content:""; position:absolute; inset:9px; border:1px dashed rgba(131,232,221,.2); border-radius:50%; }
+.ai-reticle::after { inset:25px; border-style:solid; background:rgba(131,232,221,.08); }
+.ai-reticle i:first-child { position:absolute; left:50%; top:-12px; bottom:-12px; width:1px; background:linear-gradient(transparent,rgba(131,232,221,.26),transparent); }
+.ai-reticle i:last-child { position:absolute; top:50%; left:-12px; right:-12px; height:1px; background:linear-gradient(90deg,transparent,rgba(131,232,221,.26),transparent); }
+.ai-telemetry--1 .ai-reticle { left:72%; top:58%; border-radius:12%; animation-direction:reverse; }
+.ai-telemetry--2 .ai-reticle { left:27%; top:61%; width:54px; height:54px; }
+@keyframes ai-reticle { to { transform:translate(-50%,-50%) rotate(360deg); } }
+.ai-node { position:absolute; width:4px; height:4px; border-radius:50%; background:var(--ai-accent); box-shadow:0 0 9px 2px rgba(131,232,221,.7); animation:ai-node 2.8s ease-in-out infinite; }
+.ai-node--one { left:18%; top:36%; }
+.ai-node--two { right:22%; top:42%; animation-delay:-.9s; }
+.ai-node--three { left:64%; bottom:24%; animation-delay:-1.7s; }
+@keyframes ai-node { 50% { transform:scale(2.1); opacity:.35; } }
+.ai-data-stream { position:absolute; right:18px; bottom:17px; display:flex; flex-direction:column; align-items:flex-end; gap:3px; font-size:7px; letter-spacing:.15em; color:rgba(205,250,243,.65); }
+.ai-data-stream span:nth-child(2) { color:rgba(131,232,221,.95); }
+.ai-waveform { position:absolute; left:18px; bottom:17px; height:38px; display:flex; align-items:flex-end; gap:2px; }
+.ai-waveform i { display:block; width:2px; background:linear-gradient(to top,rgba(59,140,169,.25),var(--ai-accent)); transform-origin:bottom; animation:ai-wave 1.5s ease-in-out infinite; }
+@keyframes ai-wave { 0%,100% { transform:scaleY(.35); opacity:.35; } 50% { transform:scaleY(1); opacity:.9; } }
+
 @media (hover: none) {
   .project-preview-image {
     animation: none;

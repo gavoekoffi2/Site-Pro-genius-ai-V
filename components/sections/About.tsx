@@ -37,8 +37,10 @@ function AnimatedTitle() {
 
 export default function About() {
   return (
-    <section id="a-propos" className="relative z-10 mx-auto max-w-7xl px-5 py-28 md:px-8 md:py-40">
-      <div className="grid items-center gap-16 lg:grid-cols-2">
+    <section id="a-propos" className="relative z-10 overflow-hidden border-y border-white/[0.055] py-28 md:py-44">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_77%_50%,rgba(23,101,133,.18),transparent_34%),linear-gradient(180deg,rgba(3,7,13,.2),rgba(5,18,27,.68),rgba(3,7,13,.2))]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(109,190,197,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(109,190,197,.08)_1px,transparent_1px)] [background-size:54px_54px] [mask-image:radial-gradient(circle_at_78%_50%,black,transparent_58%)]" />
+      <div className="relative mx-auto grid max-w-[88rem] items-center gap-16 px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="flex flex-col gap-8">
           <Reveal>
             <span className="inline-flex items-center gap-2.5 rounded-full border border-ember/20 bg-ember/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-ember-soft">
@@ -72,14 +74,19 @@ export default function About() {
           </div>
         </div>
 
-        <Reveal delay={0.2} direction="left" className="flex justify-center">
-          <div className="relative">
+        <Reveal delay={0.2} direction="left" className="flex justify-center lg:justify-end">
+          <div className="relative w-full max-w-[660px]">
+            <div className="absolute left-[8%] top-[3%] font-mono text-[9px] uppercase tracking-[0.32em] text-[#75d7cf]/35">Continental intelligence network</div>
             <DigitalGlobe />
             <div
               className="pointer-events-none absolute inset-0 animate-[pulse-soft_6s_ease-in-out_infinite] rounded-full"
               style={{ boxShadow: "inset 0 0 80px rgba(93,156,187,0.07)" }}
               aria-hidden
             />
+            <div className="pointer-events-none absolute bottom-[5%] left-[8%] flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.22em] text-white/30">
+              <span className="h-px w-10 bg-gradient-to-r from-[#7be2d7] to-transparent" />
+              Africa-first · World-class
+            </div>
           </div>
         </Reveal>
       </div>

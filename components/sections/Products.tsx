@@ -105,12 +105,36 @@ function ProjectCard({ project, index }: { project: ProjectShowcase; index: numb
           </div>
         )}
 
-        <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/15 bg-[#06101a]/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#d6e7ed] backdrop-blur-xl md:left-5 md:top-5">
+        {project.kind === "ai" && (
+          <div className={`ai-telemetry ai-telemetry--${index % 3} pointer-events-none absolute inset-0 z-[2] overflow-hidden`} aria-hidden>
+            <span className="ai-corner ai-corner--tl" />
+            <span className="ai-corner ai-corner--tr" />
+            <span className="ai-corner ai-corner--bl" />
+            <span className="ai-corner ai-corner--br" />
+            <span className="ai-scan-line" />
+            <span className="ai-reticle"><i /><i /></span>
+            <span className="ai-node ai-node--one" />
+            <span className="ai-node ai-node--two" />
+            <span className="ai-node ai-node--three" />
+            <div className="ai-data-stream font-mono">
+              <span>AI_{String(index + 1).padStart(2, "0")}</span>
+              <span>NEURAL · ACTIVE</span>
+              <span>{index % 2 === 0 ? "INFERENCE 98.7%" : "AGENT ONLINE"}</span>
+            </div>
+            <div className="ai-waveform">
+              {[12, 22, 8, 28, 17, 34, 12, 25, 9, 30].map((height, bar) => (
+                <i key={bar} style={{ height, animationDelay: `${bar * -0.12}s` }} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full border border-white/15 bg-[#06101a]/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#d6e7ed] backdrop-blur-xl md:left-5 md:top-5">
           {project.kind === "ai" ? <Sparkles className="h-3 w-3 text-[#ACCFD6]" /> : <Monitor className="h-3 w-3 text-[#C5936E]" />}
           {project.kind === "ai" ? "Solution IA" : "Site web"}
         </div>
 
-        <div className={`absolute right-4 top-4 flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] backdrop-blur-xl md:right-5 md:top-5 ${project.status === "deployed" ? "border-emerald-400/25 bg-[#06101a]/85 text-emerald-300" : "border-[#C5936E]/30 bg-[#120d0a]/85 text-[#d9ad89]"}`}>
+        <div className={`absolute right-4 top-4 z-10 flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] backdrop-blur-xl md:right-5 md:top-5 ${project.status === "deployed" ? "border-emerald-400/25 bg-[#06101a]/85 text-emerald-300" : "border-[#C5936E]/30 bg-[#120d0a]/85 text-[#d9ad89]"}`}>
           {project.status === "deployed" ? <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]" /> : <Clock3 className="h-3 w-3" />}
           {project.status === "deployed" ? "En ligne" : "En construction"}
         </div>

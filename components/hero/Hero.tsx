@@ -86,6 +86,29 @@ export default function Hero() {
         />
         <div className="grid-veil pointer-events-none absolute inset-0" aria-hidden />
 
+        {/* Interface IA cinématique : des repères techniques donnent à la scène
+            la profondeur d'un laboratoire, sans concurrencer les deux mains. */}
+        <div className="hero-hud pointer-events-none absolute inset-0 z-[3] hidden md:block" aria-hidden>
+          <div className="hero-hud-corner hero-hud-corner--tl" />
+          <div className="hero-hud-corner hero-hud-corner--tr" />
+          <div className="hero-hud-corner hero-hud-corner--bl" />
+          <div className="hero-hud-corner hero-hud-corner--br" />
+          <div className="absolute left-8 top-[34%] flex items-center gap-3 xl:left-14">
+            <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-[#70ddd2]/25">
+              <span className="absolute inset-1 animate-ping rounded-full border border-[#70ddd2]/20" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#8cebdd] shadow-[0_0_12px_#70ddd2]" />
+            </span>
+            <div><span className="block font-mono text-[8px] uppercase tracking-[0.25em] text-[#88c9c4]/45">Human potential</span><span className="mt-1 block font-mono text-[10px] tracking-[0.14em] text-[#d9f4f0]/70">CAPACITY · AMPLIFIED</span></div>
+          </div>
+          <div className="absolute right-8 top-[34%] flex items-center gap-3 text-right xl:right-14">
+            <div><span className="block font-mono text-[8px] uppercase tracking-[0.25em] text-[#88c9c4]/45">Intelligence layer</span><span className="mt-1 block font-mono text-[10px] tracking-[0.14em] text-[#d9f4f0]/70">NEURAL CORE · ONLINE</span></div>
+            <span className="relative h-8 w-8 rounded-md border border-[#70ddd2]/25 bg-[#70ddd2]/[0.035]"><span className="absolute inset-x-1 top-1/2 h-px animate-[hud-scan_2.8s_ease-in-out_infinite] bg-[#8cebdd]/75 shadow-[0_0_8px_#70ddd2]" /></span>
+          </div>
+          <div className="absolute bottom-9 left-1/2 flex -translate-x-1/2 items-center gap-5 font-mono text-[8px] uppercase tracking-[0.25em] text-white/25">
+            <span>Agents IA</span><span className="h-1 w-1 rounded-full bg-[#70ddd2]/55" /><span>Automatisation</span><span className="h-1 w-1 rounded-full bg-[#c58b61]/55" /><span>Produits intelligents</span>
+          </div>
+        </div>
+
         {/* Scène 3D */}
         {mounted && (
           <div className="absolute inset-0">
@@ -112,11 +135,14 @@ export default function Hero() {
               {dict.hero.eyebrow}
             </span>
             <h1
-              className="font-display max-w-3xl text-balance text-3xl font-medium leading-tight tracking-tight text-frost/85 md:text-5xl"
+              className="font-display max-w-4xl text-balance text-4xl font-medium leading-[0.98] tracking-[-0.045em] text-frost/90 md:text-6xl lg:text-[4.8rem]"
               style={{ opacity: 0, animation: "heroFade 1.4s cubic-bezier(0.22,1,0.36,1) 2.8s both" }}
             >
               {dict.hero.sub}
             </h1>
+            <div className="hero-signal mt-1 h-px w-32 overflow-hidden bg-white/10" aria-hidden>
+              <span className="block h-full w-1/2 bg-gradient-to-r from-transparent via-[#83e8dd] to-transparent" />
+            </div>
           </div>
 
           <div
