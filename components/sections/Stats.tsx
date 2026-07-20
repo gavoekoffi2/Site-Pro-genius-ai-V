@@ -15,7 +15,7 @@ export default function Stats() {
 
         <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.04] sm:grid-cols-2 lg:grid-cols-4">
           {dict.stats.items.map((s, i) => (
-            <div key={s.label} className="bg-[#0b0806]/90 p-10 text-center">
+            <div key={s.label} className="bg-[#06101a]/90 p-10 text-center">
               <Reveal delay={i * 0.1}>
                 <p className="font-display text-5xl font-semibold tracking-tight text-gradient md:text-6xl">
                   <Counter value={s.value} suffix={s.suffix} duration={1.6 + i * 0.3} />

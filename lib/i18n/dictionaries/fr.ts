@@ -6,16 +6,16 @@
 const fr = {
   meta: {
     siteName: "Pro Genius AI",
-    tagline: "L'intelligence artificielle au service du potentiel humain.",
+    tagline: "L'intelligence artificielle comme levier du développement africain.",
     description:
-      "Pro Genius AI est une startup africaine spécialisée en intelligence artificielle. SaaS IA, agents IA, automatisations, plateformes, solutions vocales, formations et conseil — nous construisons l'avenir de l'Afrique grâce à l'IA.",
+      "Pro Genius AI conçoit des solutions d'intelligence artificielle qui permettent aux entreprises et aux particuliers de transformer la technologie en résultats concrets et d'accélérer le développement africain.",
   },
 
   nav: {
     home: "Accueil",
     about: "À propos",
     solutions: "Solutions IA",
-    products: "Produits",
+    products: "Réalisations",
     services: "Services",
     caseStudies: "Études de cas",
     blog: "Blog IA",
@@ -37,7 +37,7 @@ const fr = {
   about: {
     eyebrow: "Qui sommes-nous",
     titleLines: ["Nous construisons", "l'avenir de l'Afrique", "grâce à l'IA."],
-    body: "Pro Genius AI est née d'une conviction simple : l'Afrique ne doit pas subir la révolution de l'intelligence artificielle — elle doit la conduire. Nous concevons des systèmes intelligents qui permettent aux entreprises du continent de travailler plus vite, plus intelligemment et avec beaucoup plus de puissance.",
+    body: "Pro Genius AI conçoit des solutions d'intelligence artificielle pour permettre aux entreprises comme aux particuliers de tirer pleinement profit de cette technologie. Notre ambition est claire : faire de l'IA un levier concret de productivité, d'opportunités et d'innovation capable d'accélérer durablement le développement africain.",
     pillars: [
       {
         title: "Augmenter l'humain",
@@ -86,7 +86,7 @@ const fr = {
       {
         year: "Chapitre 03",
         title: "L'écosystème",
-        text: "AfriVox AI, ProCallAI, AfriTransfert : les briques s'assemblent en un écosystème cohérent au service des entreprises.",
+        text: "AfrivoxAI, ProSocial AI et AfriTransfer : des solutions complémentaires s'assemblent au service des entreprises et des particuliers.",
       },
       {
         year: "Chapitre 04",
@@ -100,7 +100,7 @@ const fr = {
     eyebrow: "En chiffres",
     title: "Un écosystème concret, une ambition continentale.",
     items: [
-      { value: 5, suffix: "", label: "Produits IA réunis dans notre écosystème" },
+      { value: 11, suffix: "", label: "Réalisations numériques présentées dans notre portfolio" },
       { value: 8, suffix: "", label: "Expertises proposées aux organisations" },
       { value: 1, suffix: "", label: "Écosystème intégré au service de l'Afrique" },
       { value: 100, suffix: "%", label: "Une vision centrée sur le potentiel humain" },

@@ -20,7 +20,7 @@ const columns = [
       { href: "/produits/graphiste-gpt", label: "Graphiste GPT" },
       { href: "/produits/cutforge", label: "CutForge" },
       { href: "/produits/afrivox-ai", label: "AfriVox AI" },
-      { href: "/produits/procallai", label: "ProCallAI" },
+      { href: "/produits/prosocial-ai", label: "ProSocial AI" },
       { href: "/produits/afritransfert", label: "AfriTransfert" },
     ],
   },

@@ -31,8 +31,8 @@ export default function Impact() {
           className="absolute left-5 top-0 h-full w-px origin-top md:left-1/2"
           style={{
             scaleY: lineScale,
-            background: "linear-gradient(180deg, #ff9b45, #2e5fb7)",
-            boxShadow: "0 0 14px rgba(255,155,69,0.6)",
+            background: "linear-gradient(180deg, #c5936e, #27689d)",
+            boxShadow: "0 0 14px rgba(93,156,187,0.55)",
           }}
           aria-hidden
         />
@@ -44,12 +44,12 @@ export default function Impact() {
               <div key={step.title} className="relative">
                 {/* Nœud lumineux */}
                 <span
-                  className="absolute left-5 top-2 z-10 h-3 w-3 -translate-x-1/2 rounded-full bg-ember shadow-[0_0_16px_#ff9b45] md:left-1/2"
+                  className="absolute left-5 top-2 z-10 h-3 w-3 -translate-x-1/2 rounded-full bg-azure-soft shadow-[0_0_16px_#5d9cbb] md:left-1/2"
                   aria-hidden
                 />
                 <Reveal
                   direction={left ? "right" : "left"}
-                  className={`ml-12 md:ml-0 md:w-[calc(50%-3rem)] ${left ? "" : "md:ml-[calc(50%+3rem)]"}`}
+                  className={`ml-12 w-[calc(100%-3rem)] md:ml-0 md:w-[calc(50%-3rem)] ${left ? "" : "md:ml-[calc(50%+3rem)]"}`}
                 >
                   <div className="glass-deep group rounded-3xl p-8 transition-all duration-500 hover:border-ember/25 hover:shadow-[0_0_40px_rgba(232,118,31,0.13)]">
                     <span className="font-display text-[11px] uppercase tracking-[0.32em] text-ember">

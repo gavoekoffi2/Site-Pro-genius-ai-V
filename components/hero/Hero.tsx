@@ -88,7 +88,7 @@ export default function Hero() {
         {/* Halo ambiant derrière la scène */}
         <div
           className="animate-aurora pointer-events-none absolute left-1/2 top-1/2 h-[80vmin] w-[110vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60"
-          style={{ background: "radial-gradient(ellipse, rgba(232,118,31,0.13), rgba(46,95,183,0.06) 48%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, rgba(93,156,187,0.15), rgba(21,63,107,0.09) 48%, transparent 70%)" }}
           aria-hidden
         />
         <div className="grid-veil pointer-events-none absolute inset-0" aria-hidden />
@@ -104,7 +104,7 @@ export default function Hero() {
         <div
           ref={flash}
           className="pointer-events-none absolute inset-0 opacity-0"
-          style={{ background: "radial-gradient(circle at 50% 45%, rgba(255,235,210,0.92), rgba(255,150,60,0.38) 40%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle at 50% 51%, rgba(238,252,255,0.96), rgba(93,156,187,0.42) 36%, rgba(183,86,29,0.14) 58%, transparent 72%)" }}
           aria-hidden
         />
 

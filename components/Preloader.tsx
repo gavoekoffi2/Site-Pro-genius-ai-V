@@ -1,12 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-/**
- * Ouverture cinématique : écran noir, monogramme qui se trace,
- * pulsation lumineuse, puis le voile se lève sur le hero.
- */
 export default function Preloader() {
   const [done, setDone] = useState(false);
 
@@ -15,7 +12,7 @@ export default function Preloader() {
     const t = setTimeout(() => {
       setDone(true);
       document.documentElement.style.overflow = "";
-    }, 2400);
+    }, 1900);
     return () => {
       clearTimeout(t);
       document.documentElement.style.overflow = "";
@@ -26,54 +23,30 @@ export default function Preloader() {
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050302]"
-          exit={{ opacity: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#03070d]"
+          exit={{ opacity: 0, scale: 1.03, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } }}
           aria-hidden
         >
-          <div className="relative flex flex-col items-center gap-8">
+          <div className="relative flex flex-col items-center">
             <motion.div
-              className="absolute h-56 w-56 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(255,155,69,0.14), transparent 65%)" }}
+              className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(93,156,187,.22),rgba(21,63,107,.08)_42%,transparent_70%)] blur-xl"
               initial={{ scale: 0.4, opacity: 0 }}
               animate={{ scale: [0.4, 1.15, 1], opacity: [0, 1, 0.8] }}
-              transition={{ duration: 2, ease: "easeOut" }}
+              transition={{ duration: 1.7, ease: "easeOut" }}
             />
-            <svg width="92" height="92" viewBox="0 0 100 100" fill="none">
-              <motion.circle
-                cx="50" cy="50" r="44"
-                stroke="url(#pg)" strokeWidth="1.5"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.4, ease: "easeInOut" }}
-              />
-              <motion.path
-                d="M36 68 V32 h16 a12 12 0 0 1 0 24 h-10"
-                stroke="#e8edfb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.1, delay: 0.5, ease: "easeInOut" }}
-              />
-              <motion.circle
-                cx="68" cy="66" r="3.4" fill="#ff9b45"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 1.5, duration: 0.4 }}
-              />
-              <defs>
-                <linearGradient id="pg" x1="0" y1="0" x2="100" y2="100">
-                  <stop stopColor="#ff9b45" />
-                  <stop offset="1" stopColor="#2e5fb7" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <motion.p
-              className="font-display text-[11px] uppercase tracking-[0.5em] text-mist"
-              initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+            <motion.div
+              initial={{ opacity: 0, y: 18, filter: "blur(12px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ delay: 1.2, duration: 0.8 }}
+              transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1] }}
             >
-              Pro Genius AI
-            </motion.p>
+              <Image src="/brand/pro-genius-ai-logo.webp" alt="" width={166} height={180} className="h-40 w-auto" priority />
+            </motion.div>
+            <motion.div
+              className="mt-6 h-px bg-gradient-to-r from-transparent via-[#5D9CBB] to-transparent"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 190, opacity: 1 }}
+              transition={{ delay: 0.65, duration: 0.85 }}
+            />
           </div>
         </motion.div>
       )}

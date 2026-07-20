@@ -42,7 +42,7 @@ export default function About() {
         <div className="flex flex-col gap-8">
           <Reveal>
             <span className="inline-flex items-center gap-2.5 rounded-full border border-ember/20 bg-ember/5 px-4 py-1.5 font-display text-[11px] font-medium uppercase tracking-[0.3em] text-ember-soft">
-              <span className="h-1 w-1 rounded-full bg-ember shadow-[0_0_8px_#ff9b45]" />
+              <span className="h-1 w-1 rounded-full bg-azure-soft shadow-[0_0_8px_#5d9cbb]" />
               {dict.about.eyebrow}
             </span>
           </Reveal>
@@ -77,7 +77,7 @@ export default function About() {
             <DigitalGlobe />
             <div
               className="pointer-events-none absolute inset-0 animate-[pulse-soft_6s_ease-in-out_infinite] rounded-full"
-              style={{ boxShadow: "inset 0 0 80px rgba(232,118,31,0.05)" }}
+              style={{ boxShadow: "inset 0 0 80px rgba(93,156,187,0.07)" }}
               aria-hidden
             />
           </div>

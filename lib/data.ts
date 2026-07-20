@@ -15,6 +15,35 @@ export type Product = {
   symbol: string;
 };
 
+export type ProjectShowcase = {
+  slug: string;
+  name: string;
+  category: string;
+  tagline: string;
+  url?: string;
+  preview?: string;
+  accent: string;
+  status: "deployed" | "building";
+  kind: "ai" | "website";
+};
+
+export const deployedProjects: ProjectShowcase[] = [
+  { slug: "graphiste-gpt", name: "Graphiste GPT", category: "Création visuelle IA", tagline: "Des identités visuelles et des campagnes prêtes à marquer les esprits.", url: "https://smart-poster-scribe.vercel.app", preview: "/projects/graphiste-gpt.webp", accent: "#B7561D", status: "deployed", kind: "ai" },
+  { slug: "prosocial-ai", name: "ProSocial AI", category: "Réseaux sociaux", tagline: "La création, la planification et la publication réunies dans un même espace intelligent.", url: "https://auto-post-gen.76.13.129.252.sslip.io", preview: "/projects/prosocial-ai.webp", accent: "#5D9CBB", status: "deployed", kind: "ai" },
+  { slug: "cutforge", name: "CutForge", category: "Montage vidéo IA", tagline: "Des vidéos rythmées, sous-titrées et prêtes à publier en quelques minutes.", url: "https://autoedit.srv1305401.hstgr.cloud", preview: "/projects/cutforge.webp", accent: "#27689D", status: "deployed", kind: "ai" },
+  { slug: "afrivoxai", name: "AfrivoxAI", category: "Agents vocaux IA", tagline: "Des conversations vocales naturelles, pensées pour les entreprises africaines.", url: "https://afrivoxai.com", preview: "/projects/afrivoxai.webp", accent: "#ACCFD6", status: "deployed", kind: "ai" },
+  { slug: "jobtask-ai", name: "JobTask AI", category: "Carrière augmentée", tagline: "CV, candidatures et progression professionnelle propulsés par l'intelligence artificielle.", url: "https://jobtaskai.com", preview: "/projects/jobtask-ai.webp", accent: "#5D9CBB", status: "deployed", kind: "ai" },
+  { slug: "afritransfer", name: "AfriTransfer", category: "Fintech panafricaine", tagline: "Une expérience simple pour envoyer de l'argent à travers l'Afrique.", url: "https://afritransfert.76.13.129.252.sslip.io", preview: "/projects/afritransfer.webp", accent: "#B7561D", status: "deployed", kind: "ai" },
+  { slug: "prowhatsapp-ai", name: "ProWhatsAppAI", category: "Relation client IA", tagline: "Un centre de conversations intelligent pour transformer chaque message en action.", url: "https://prowasappai.srv1305401.hstgr.cloud", preview: "/projects/prowhatsapp-ai.webp", accent: "#5D9CBB", status: "deployed", kind: "ai" },
+  { slug: "be-the-solution", name: "Be The Solution Academy", category: "Éducation & formation", tagline: "Une plateforme pour apprendre, accéder aux ressources et transformer ses compétences en opportunités.", url: "https://bethesolutionacademy.org/", preview: "/projects/be-the-solution.webp", accent: "#C5936E", status: "deployed", kind: "website" },
+  { slug: "infpp", name: "INFPP", category: "Institution publique", tagline: "Le portail de référence pour découvrir les formations techniques et professionnelles de l'institut.", url: "https://infpp.tg/", preview: "/projects/infpp.webp", accent: "#5D9CBB", status: "deployed", kind: "website" },
+];
+
+export const inProgressProjects: ProjectShowcase[] = [
+  { slug: "emefa", name: "EMEFA", category: "Assistante vocale en temps réel", tagline: "Une assistante directe, interruptible et capable d'exécuter réellement les tâches confiées.", accent: "#ACCFD6", status: "building", kind: "ai" },
+  { slug: "architask-ai", name: "ArchiTask AI", category: "Architecture générative", tagline: "Du plan 2D à une expérience 3D immersive pour concevoir et présenter autrement.", accent: "#27689D", status: "building", kind: "ai" },
+];
+
 export const products: Product[] = [
   {
     slug: "graphiste-gpt",
@@ -68,21 +97,21 @@ export const products: Product[] = [
     symbol: "◉",
   },
   {
-    slug: "procallai",
-    name: "ProCallAI",
-    category: "Agents vocaux",
-    tagline: "Des agents téléphoniques IA qui ne dorment jamais.",
+    slug: "prosocial-ai",
+    name: "ProSocial AI",
+    category: "Marketing augmenté",
+    tagline: "Votre présence sociale avance, même quand vous êtes concentré ailleurs.",
     description:
-      "ProCallAI répond, qualifie, relance et prend des rendez-vous par téléphone, 24h/24. Une voix naturelle, un raisonnement fiable, et chaque conversation transcrite et analysée dans votre CRM.",
+      "ProSocial AI aide les entreprises à imaginer, organiser et publier des contenus cohérents sur leurs réseaux sociaux depuis un seul espace de travail.",
     features: [
-      "Réception et émission d'appels 24h/24, 7j/7",
-      "Qualification et routage intelligent des demandes",
-      "Prise de rendez-vous connectée à vos agendas",
-      "Transcription, résumé et analyse de chaque appel",
+      "Génération de contenus adaptés à chaque réseau",
+      "Planification éditoriale centralisée",
+      "Création visuelle cohérente avec votre marque",
+      "Suivi des publications et de leurs performances",
     ],
-    gradient: "from-[#2e5fb7] to-[#e8761f]",
-    accent: "#6b96e8",
-    symbol: "◎",
+    gradient: "from-[#5d9cbb] to-[#153f6b]",
+    accent: "#5d9cbb",
+    symbol: "✦",
   },
   {
     slug: "afritransfert",
@@ -244,7 +273,7 @@ export const caseStudies: CaseStudy[] = [
     challenge:
       "Une institution financière recevait des milliers d'appels par jour. Temps d'attente moyen : 11 minutes. Un client sur trois raccrochait avant d'avoir parlé à un conseiller.",
     solution:
-      "Déploiement de ProCallAI en première ligne : réponse instantanée, résolution automatique des demandes courantes (soldes, oppositions, suivis), transfert intelligent des cas complexes avec contexte complet pour le conseiller.",
+      "Déploiement d’un agent vocal IA en première ligne : réponse instantanée, résolution automatique des demandes courantes et transfert intelligent des cas complexes avec tout leur contexte.",
     results: [
       { value: "-82%", label: "de temps d'attente moyen" },
       { value: "67%", label: "des appels résolus sans humain" },

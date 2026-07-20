@@ -10,7 +10,7 @@ import { products } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Produits",
   description:
-    "L'écosystème de produits IA de Pro Genius AI : Graphiste GPT, CutForge, AfriVox AI, ProCallAI, AfriTransfert. Des solutions conçues en Afrique, au standard mondial.",
+    "L'écosystème de produits IA de Pro Genius AI : Graphiste GPT, ProSocial AI, CutForge, AfrivoxAI, JobTask AI, AfriTransfer et ProWhatsAppAI.",
 };
 
 export default function ProductsPage() {

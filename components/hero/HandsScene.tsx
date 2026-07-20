@@ -34,13 +34,13 @@ export default function HandsScene({ progress }: HandsSceneProps) {
 
   const humanApproach = useTransform(
     scrollProgress,
-    [0, 0.18, 0.72, 1],
-    reduceMotion ? ['-1vw', '-1vw', '-1vw', '-1vw'] : ['-8vw', '-6vw', '0vw', '1.2vw']
+    [0, 0.2, 0.76, 1],
+    reduceMotion ? ['0vw', '0vw', '0vw', '0vw'] : ['-17vw', '-14vw', '-2vw', '0vw']
   );
   const robotApproach = useTransform(
     scrollProgress,
-    [0, 0.18, 0.72, 1],
-    reduceMotion ? ['1vw', '1vw', '1vw', '1vw'] : ['8vw', '6vw', '0vw', '-1.2vw']
+    [0, 0.2, 0.76, 1],
+    reduceMotion ? ['0vw', '0vw', '0vw', '0vw'] : ['17vw', '14vw', '2vw', '0vw']
   );
   const humanParallax = useTransform(parallaxX, [-1, 1], [-8, 8]);
   const robotParallax = useTransform(parallaxX, [-1, 1], [10, -10]);
@@ -48,8 +48,9 @@ export default function HandsScene({ progress }: HandsSceneProps) {
   const backgroundX = useTransform(parallaxX, [-1, 1], [-12, 12]);
   const backgroundY = useTransform(parallaxY, [-1, 1], [-8, 8]);
 
-  const contactOpacity = useTransform(scrollProgress, [0.52, 0.7, 0.86, 1], [0, 0.25, 1, 0.8]);
-  const contactScale = useTransform(scrollProgress, [0.55, 0.8, 1], [0.35, 1, 1.22]);
+  const handScale = useTransform(scrollProgress, [0, 0.78, 1], reduceMotion ? [0.86, 0.86, 0.86] : [0.78, 0.82, 0.86]);
+  const contactOpacity = useTransform(scrollProgress, [0.76, 0.86, 0.93, 1], [0, 0.18, 1, 0.92]);
+  const contactScale = useTransform(scrollProgress, [0.76, 0.92, 1], [0.2, 1, 1.35]);
   const atmosphereOpacity = useTransform(scrollProgress, [0, 0.65, 1], [0.3, 0.58, 0.78]);
   const sceneScale = useTransform(scrollProgress, [0, 1], reduceMotion ? [1, 1] : [1.04, 1.1]);
 
@@ -107,7 +108,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
       {/* Human photographic plate. Pure black areas disappear through Screen. */}
       <motion.div
         className="absolute -inset-[1.5%] z-[2] will-change-transform"
-        style={{ x: humanApproach, y: handY }}
+        style={{ x: humanApproach, y: handY, scale: handScale }}
         initial={{ opacity: 0, x: '-12vw' }}
         animate={{ opacity: ready ? 1 : 0 }}
         transition={{ opacity: { duration: 1.1, delay: 0.15 }, x: { duration: 1.25, ease: [0.16, 1, 0.3, 1] } }}
@@ -115,7 +116,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
         <motion.img
           src="/media/african-human-hand.png"
           alt=""
-          className="h-full w-full select-none object-cover object-center"
+          className="h-full w-full select-none object-cover object-center opacity-95"
           style={{ x: humanParallax }}
           draggable={false}
         />
@@ -124,7 +125,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
       {/* Robot photographic plate. */}
       <motion.div
         className="absolute -inset-[1.5%] z-[3] will-change-transform"
-        style={{ x: robotApproach, y: handY }}
+        style={{ x: robotApproach, y: handY, scale: handScale }}
         initial={{ opacity: 0, x: '12vw' }}
         animate={{ opacity: ready ? 1 : 0 }}
         transition={{ opacity: { duration: 1.1, delay: 0.25 }, x: { duration: 1.25, ease: [0.16, 1, 0.3, 1] } }}
@@ -132,7 +133,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
         <motion.img
           src="/media/robot-hand.png"
           alt=""
-          className="h-full w-full select-none object-cover object-center"
+          className="h-full w-full select-none object-cover object-center opacity-95"
           style={{ x: robotParallax }}
           draggable={false}
         />
@@ -156,6 +157,10 @@ export default function HandsScene({ progress }: HandsSceneProps) {
           transition={{ duration: 2.5, delay, repeat: Infinity, ease: 'easeOut' }}
         />
       ))}
+      <motion.div
+        className="pointer-events-none absolute left-1/2 top-[51%] z-[4] h-px w-[70vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#ACCFD6] to-transparent blur-[1px]"
+        style={{ opacity: contactOpacity, scaleX: contactScale }}
+      />
 
       {/* Restrained data atmosphere — no particle-hand effect. */}
       <motion.div
@@ -175,6 +180,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
             'url("data:image/svg+xml,%3Csvg viewBox=%270 0 180 180%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.85%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%27.65%27/%3E%3C/svg%3E")',
         }}
       />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[7] h-[44%] bg-gradient-to-b from-[#020809]/90 via-[#020809]/35 to-transparent md:hidden" />
     </div>
   );
 }
