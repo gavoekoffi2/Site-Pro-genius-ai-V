@@ -72,7 +72,7 @@ export default function RootLayout({
         <SmoothScroll>
           <NeuralBackground />
           <Navbar />
-          <main className="relative">{children}</main>
+          <main className="relative overflow-x-clip">{children}</main>
           <Footer />
         </SmoothScroll>
       </body>

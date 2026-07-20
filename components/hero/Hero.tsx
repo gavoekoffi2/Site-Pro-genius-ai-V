@@ -16,9 +16,9 @@ const HandsScene = dynamic(() => import("./HandsScene"), { ssr: false });
 const dict = getDictionary();
 
 /**
- * Hero cinématique : la scène des deux mains est épinglée pendant
- * 300vh de scroll. La progression du scroll pilote l'approche des
- * mains ; au contact, onde lumineuse et révélation du slogan.
+ * Hero cinématique : la scène reste épinglée pendant le scroll.
+ * La progression rapproche l'index humain de l'index robotique ; au contact,
+ * une onde lumineuse traverse l'écran avant de révéler le slogan.
  */
 export default function Hero() {
   const section = useRef<HTMLElement>(null);
@@ -54,21 +54,21 @@ export default function Hero() {
           // L'invitation initiale s'efface dès que l'histoire commence
           if (intro.current) {
             gsap.set(intro.current, {
-              opacity: gsap.utils.clamp(0, 1, 1 - p / 0.3),
-              y: p * -60,
-              filter: `blur(${p * 14}px)`,
+              opacity: gsap.utils.clamp(0, 1, 1 - p / 0.27),
+              y: p * -52,
+              filter: `blur(${p * 13}px)`,
             });
           }
 
           // Flash plein écran au moment exact du contact
           if (flash.current) {
-            const f = gsap.utils.clamp(0, 1, (p - 0.855) / 0.05) * gsap.utils.clamp(0, 1, (0.97 - p) / 0.06);
-            gsap.set(flash.current, { opacity: f * 0.55 });
+            const f = gsap.utils.clamp(0, 1, (p - 0.655) / 0.035) * gsap.utils.clamp(0, 1, (0.775 - p) / 0.055);
+            gsap.set(flash.current, { opacity: f * 0.72 });
           }
 
           // Révélation du slogan après l'impact
           if (slogan.current) {
-            const s = gsap.utils.clamp(0, 1, (p - 0.885) / 0.09);
+            const s = gsap.utils.clamp(0, 1, (p - 0.755) / 0.12);
             gsap.set(slogan.current, {
               opacity: s,
               y: (1 - s) * 46,
@@ -83,7 +83,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={section} className="relative" style={{ height: reduced ? "100vh" : "300vh" }}>
+    <section ref={section} className="relative" style={{ height: reduced ? "100vh" : "240vh" }}>
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         {/* Halo ambiant derrière la scène */}
         <div
@@ -104,7 +104,7 @@ export default function Hero() {
         <div
           ref={flash}
           className="pointer-events-none absolute inset-0 opacity-0"
-          style={{ background: "radial-gradient(circle at 50% 51%, rgba(238,252,255,0.96), rgba(93,156,187,0.42) 36%, rgba(183,86,29,0.14) 58%, transparent 72%)" }}
+          style={{ background: "radial-gradient(circle at 50% 53.2%, rgba(255,255,255,0.98), rgba(93,220,204,0.52) 24%, rgba(93,156,187,0.34) 42%, rgba(183,86,29,0.13) 61%, transparent 75%)" }}
           aria-hidden
         />
 

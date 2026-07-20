@@ -1,5 +1,5 @@
 'use client';
-/* eslint-disable @next/next/no-img-element -- native images are required for Framer Motion photographic plate compositing */
+/* eslint-disable @next/next/no-img-element -- native transparent photographic plates are required for the scroll composite */
 
 import { useEffect, useState, type RefObject } from 'react';
 import {
@@ -15,12 +15,11 @@ interface HandsSceneProps {
 }
 
 /**
- * Photographic human × AI encounter.
+ * Rencontre photographique humain × IA.
  *
- * The scene is intentionally built from independent photographic plates so the
- * two hands can genuinely move toward each other as the visitor scrolls. The
- * former WebGL particle silhouettes looked illustrative; these plates preserve
- * skin, metal, depth of field and cinematic lighting.
+ * Les deux plaques transparentes partagent exactement le même cadre 1015 × 580 :
+ * leur position finale garantit donc que seuls les bouts des index se rejoignent.
+ * Le scroll anime les plaques séparément avant de déclencher l'impact au contact.
  */
 export default function HandsScene({ progress }: HandsSceneProps) {
   const reduceMotion = useReducedMotion();
@@ -29,30 +28,53 @@ export default function HandsScene({ progress }: HandsSceneProps) {
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const parallaxX = useSpring(pointerX, { stiffness: 55, damping: 24, mass: 0.8 });
-  const parallaxY = useSpring(pointerY, { stiffness: 55, damping: 24, mass: 0.8 });
+  const parallaxX = useSpring(pointerX, { stiffness: 52, damping: 25, mass: 0.85 });
+  const parallaxY = useSpring(pointerY, { stiffness: 52, damping: 25, mass: 0.85 });
 
+  // Les mains restent éloignées au début, avancent franchement, dépassent de
+  // quelques pixels puis se stabilisent : ce micro-rebond rend le contact vivant.
   const humanApproach = useTransform(
     scrollProgress,
-    [0, 0.2, 0.76, 1],
-    reduceMotion ? ['0vw', '0vw', '0vw', '0vw'] : ['-17vw', '-14vw', '-2vw', '0vw']
+    [0, 0.12, 0.58, 0.68, 0.74, 1],
+    reduceMotion
+      ? ['0vw', '0vw', '0vw', '0vw', '0vw', '0vw']
+      : ['-38vw', '-36vw', '-9vw', '0vw', '0.55vw', '0vw']
   );
   const robotApproach = useTransform(
     scrollProgress,
-    [0, 0.2, 0.76, 1],
-    reduceMotion ? ['0vw', '0vw', '0vw', '0vw'] : ['17vw', '14vw', '2vw', '0vw']
+    [0, 0.12, 0.58, 0.68, 0.74, 1],
+    reduceMotion
+      ? ['0vw', '0vw', '0vw', '0vw', '0vw', '0vw']
+      : ['38vw', '36vw', '9vw', '0vw', '-0.55vw', '0vw']
   );
-  const humanParallax = useTransform(parallaxX, [-1, 1], [-8, 8]);
-  const robotParallax = useTransform(parallaxX, [-1, 1], [10, -10]);
-  const handY = useTransform(parallaxY, [-1, 1], [-5, 5]);
+  const humanRotation = useTransform(
+    scrollProgress,
+    [0, 0.18, 0.62, 0.7, 1],
+    reduceMotion ? [0, 0, 0, 0, 0] : [-8, -7, -1.5, 0.35, 0]
+  );
+  const robotRotation = useTransform(
+    scrollProgress,
+    [0, 0.18, 0.62, 0.7, 1],
+    reduceMotion ? [0, 0, 0, 0, 0] : [8, 7, 1.5, -0.35, 0]
+  );
+
+  const humanParallax = useTransform(parallaxX, [-1, 1], [-7, 7]);
+  const robotParallax = useTransform(parallaxX, [-1, 1], [8, -8]);
+  const handY = useTransform(parallaxY, [-1, 1], [-4, 4]);
   const backgroundX = useTransform(parallaxX, [-1, 1], [-12, 12]);
   const backgroundY = useTransform(parallaxY, [-1, 1], [-8, 8]);
 
-  const handScale = useTransform(scrollProgress, [0, 0.78, 1], reduceMotion ? [0.86, 0.86, 0.86] : [0.78, 0.82, 0.86]);
-  const contactOpacity = useTransform(scrollProgress, [0.76, 0.86, 0.93, 1], [0, 0.18, 1, 0.92]);
-  const contactScale = useTransform(scrollProgress, [0.76, 0.92, 1], [0.2, 1, 1.35]);
-  const atmosphereOpacity = useTransform(scrollProgress, [0, 0.65, 1], [0.3, 0.58, 0.78]);
-  const sceneScale = useTransform(scrollProgress, [0, 1], reduceMotion ? [1, 1] : [1.04, 1.1]);
+  const handScale = useTransform(
+    scrollProgress,
+    [0, 0.2, 0.62, 0.72, 1],
+    reduceMotion ? [1, 1, 1, 1, 1] : [0.9, 0.91, 0.985, 1.012, 1]
+  );
+  const contactOpacity = useTransform(scrollProgress, [0.63, 0.68, 0.73, 0.82, 1], [0, 0.45, 1, 0.72, 0.42]);
+  const contactScale = useTransform(scrollProgress, [0.63, 0.7, 0.78, 1], [0.15, 1, 1.7, 2.15]);
+  const impactOpacity = useTransform(scrollProgress, [0.64, 0.69, 0.735, 0.82], [0, 0.2, 1, 0]);
+  const energyLineScale = useTransform(scrollProgress, [0.64, 0.7, 0.82], [0, 1, 1.42]);
+  const atmosphereOpacity = useTransform(scrollProgress, [0, 0.55, 0.72, 1], [0.25, 0.48, 0.92, 0.64]);
+  const sceneScale = useTransform(scrollProgress, [0, 0.7, 1], reduceMotion ? [1, 1, 1] : [1.025, 1.065, 1.085]);
 
   useEffect(() => {
     setReady(true);
@@ -83,14 +105,14 @@ export default function HandsScene({ progress }: HandsSceneProps) {
       aria-hidden="true"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
+      data-hands-scene
     >
-      {/* Africa — a photographic background plate, not a decorative icon. */}
       <motion.div
         className="absolute -inset-[3%]"
         style={{ x: backgroundX, y: backgroundY, scale: sceneScale }}
         initial={{ opacity: 0 }}
         animate={{ opacity: ready ? 1 : 0 }}
-        transition={{ duration: 1.4, ease: 'easeOut' }}
+        transition={{ duration: 1.35, ease: 'easeOut' }}
       >
         <img
           src="/media/africa-ai-background.jpg"
@@ -100,87 +122,109 @@ export default function HandsScene({ progress }: HandsSceneProps) {
         />
       </motion.div>
 
-      {/* Cinematic grade: preserves detail while keeping copy readable. */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_52%,transparent_0%,rgba(2,8,9,0.08)_34%,rgba(2,8,9,0.72)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,9,0.86)_0%,rgba(2,8,9,0.24)_33%,rgba(2,8,9,0.14)_58%,rgba(2,8,9,0.62)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,8,9,0.52)_0%,transparent_24%,transparent_70%,rgba(2,8,9,0.92)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_53%,transparent_0%,rgba(2,8,9,0.05)_30%,rgba(2,8,9,0.74)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,9,0.8)_0%,rgba(2,8,9,0.14)_31%,rgba(2,8,9,0.1)_68%,rgba(2,8,9,0.7)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,8,9,0.56)_0%,transparent_26%,transparent_72%,rgba(2,8,9,0.94)_100%)]" />
 
-      {/* Human photographic plate. Pure black areas disappear through Screen. */}
-      <motion.div
-        className="absolute -inset-[1.5%] z-[2] will-change-transform"
-        style={{ x: humanApproach, y: handY, scale: handScale }}
-        initial={{ opacity: 0, x: '-12vw' }}
-        animate={{ opacity: ready ? 1 : 0 }}
-        transition={{ opacity: { duration: 1.1, delay: 0.15 }, x: { duration: 1.25, ease: [0.16, 1, 0.3, 1] } }}
-      >
-        <motion.img
-          src="/media/african-human-hand.png"
-          alt=""
-          className="h-full w-full select-none object-cover object-center opacity-95"
-          style={{ x: humanParallax }}
-          draggable={false}
-        />
-      </motion.div>
+      {/*
+        Un même cadre de composition pour les deux plaques évite toute dérive du
+        point de contact. Sur mobile il reste large, mais n'est plus déformé ni
+        rogné verticalement par object-cover.
+      */}
+      <div className="absolute left-1/2 top-[55%] z-[2] aspect-[1015/580] w-[164vw] -translate-x-1/2 -translate-y-1/2 sm:w-[142vw] md:top-[53%] md:w-[110vw] lg:w-[104vw]">
+        <motion.div
+          className="absolute inset-0 will-change-transform"
+          style={{ x: humanApproach, y: handY, scale: handScale, rotate: humanRotation, transformOrigin: '12% 78%' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: ready ? 1 : 0 }}
+          transition={{ opacity: { duration: 0.95, delay: 0.12 } }}
+          data-human-hand
+        >
+          <motion.img
+            src="/media/african-human-hand.png"
+            alt=""
+            className="h-full w-full select-none object-contain opacity-[0.98] drop-shadow-[0_22px_34px_rgba(0,0,0,0.42)]"
+            style={{ x: humanParallax }}
+            draggable={false}
+          />
+        </motion.div>
 
-      {/* Robot photographic plate. */}
-      <motion.div
-        className="absolute -inset-[1.5%] z-[3] will-change-transform"
-        style={{ x: robotApproach, y: handY, scale: handScale }}
-        initial={{ opacity: 0, x: '12vw' }}
-        animate={{ opacity: ready ? 1 : 0 }}
-        transition={{ opacity: { duration: 1.1, delay: 0.25 }, x: { duration: 1.25, ease: [0.16, 1, 0.3, 1] } }}
-      >
-        <motion.img
-          src="/media/robot-hand.png"
-          alt=""
-          className="h-full w-full select-none object-cover object-center opacity-95"
-          style={{ x: robotParallax }}
-          draggable={false}
-        />
-      </motion.div>
+        <motion.div
+          className="absolute inset-0 will-change-transform"
+          style={{ x: robotApproach, y: handY, scale: handScale, rotate: robotRotation, transformOrigin: '88% 76%' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: ready ? 1 : 0 }}
+          transition={{ opacity: { duration: 0.95, delay: 0.2 } }}
+          data-robot-hand
+        >
+          <motion.img
+            src="/media/robot-hand.png"
+            alt=""
+            className="h-full w-full select-none object-contain opacity-[0.99] drop-shadow-[0_24px_38px_rgba(0,0,0,0.48)]"
+            style={{ x: robotParallax }}
+            draggable={false}
+          />
+        </motion.div>
+      </div>
 
-      {/* Contact energy appears only when the fingertips meet. */}
+      {/* Point exact du contact des deux index. */}
       <motion.div
-        className="pointer-events-none absolute left-[50.2%] top-[51%] z-[4] h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#56d6c9]/20 blur-2xl md:h-44 md:w-44"
+        className="pointer-events-none absolute left-1/2 top-[53.2%] z-[5] h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.95)_0%,rgba(118,241,225,0.62)_9%,rgba(52,181,170,0.2)_35%,transparent_70%)] blur-xl md:h-60 md:w-60"
         style={{ opacity: contactOpacity, scale: contactScale }}
       />
       <motion.div
-        className="pointer-events-none absolute left-[50.2%] top-[51%] z-[4] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_12px_4px_rgba(112,238,222,0.9),0_0_44px_16px_rgba(9,129,118,0.56)]"
+        className="pointer-events-none absolute left-1/2 top-[53.2%] z-[6] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_9px_3px_rgba(255,255,255,1),0_0_32px_13px_rgba(92,238,220,0.95),0_0_90px_38px_rgba(32,160,151,0.62)] md:h-4 md:w-4"
         style={{ opacity: contactOpacity, scale: contactScale }}
+        data-contact-core
       />
-      {[0, 0.18, 0.36].map((delay) => (
+
+      {/* Onde de choc premium : trois anneaux, un trait d'énergie et des éclats. */}
+      {[0, 0.13, 0.26].map((delay, index) => (
         <motion.div
           key={delay}
-          className="pointer-events-none absolute left-[50.2%] top-[51%] z-[4] h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#64d8cc]/45 md:h-32 md:w-32"
+          className="pointer-events-none absolute left-1/2 top-[53.2%] z-[5] h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#8ff7ea]/60 md:h-44 md:w-44"
           style={{ opacity: contactOpacity }}
-          animate={reduceMotion ? undefined : { scale: [0.45, 1.5], opacity: [0, 0.48, 0] }}
-          transition={{ duration: 2.5, delay, repeat: Infinity, ease: 'easeOut' }}
+          animate={reduceMotion ? undefined : { scale: [0.2, 1.75] }}
+          transition={{ duration: 1.8 + index * 0.2, delay, repeat: Infinity, ease: 'easeOut' }}
         />
       ))}
       <motion.div
-        className="pointer-events-none absolute left-1/2 top-[51%] z-[4] h-px w-[70vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#ACCFD6] to-transparent blur-[1px]"
-        style={{ opacity: contactOpacity, scaleX: contactScale }}
+        className="pointer-events-none absolute left-1/2 top-[53.2%] z-[5] h-px w-[92vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-white to-transparent shadow-[0_0_16px_rgba(92,238,220,0.9)]"
+        style={{ opacity: contactOpacity, scaleX: energyLineScale }}
       />
-
-      {/* Restrained data atmosphere — no particle-hand effect. */}
       <motion.div
-        className="absolute inset-0 z-[5] opacity-60 mix-blend-screen"
-        style={{ opacity: atmosphereOpacity }}
-      >
-        <div className="absolute left-[20%] top-[28%] h-px w-[18%] rotate-[9deg] bg-gradient-to-r from-transparent via-[#9ec9c3]/30 to-transparent" />
-        <div className="absolute right-[18%] top-[64%] h-px w-[22%] -rotate-[11deg] bg-gradient-to-r from-transparent via-[#c6a15b]/25 to-transparent" />
-        <div className="absolute left-[47%] top-[18%] h-1 w-1 rounded-full bg-[#8ce8dc] shadow-[0_0_20px_5px_rgba(67,194,180,0.45)]" />
+        className="pointer-events-none absolute left-1/2 top-[53.2%] z-[5] h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[conic-gradient(from_0deg,transparent_0deg,rgba(119,247,231,0.22)_2deg,transparent_5deg,transparent_86deg,rgba(255,255,255,0.16)_89deg,transparent_93deg,transparent_178deg,rgba(198,161,91,0.18)_181deg,transparent_185deg)] blur-[0.5px]"
+        style={{ opacity: impactOpacity, scale: contactScale }}
+      />
+      {[18, 64, 112, 158, 206, 252, 301, 338].map((angle, index) => (
+        <motion.span
+          key={angle}
+          className="pointer-events-none absolute left-1/2 top-[53.2%] z-[6] h-1 w-1 rounded-full bg-white shadow-[0_0_9px_2px_rgba(103,244,227,0.85)]"
+          style={{
+            opacity: impactOpacity,
+            transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${44 + (index % 3) * 18}px)`,
+          }}
+        />
+      ))}
+
+      <motion.div className="absolute inset-0 z-[4] mix-blend-screen" style={{ opacity: atmosphereOpacity }}>
+        <div className="absolute left-[16%] top-[28%] h-px w-[25%] rotate-[7deg] bg-gradient-to-r from-transparent via-[#9ce8df]/35 to-transparent" />
+        <div className="absolute right-[15%] top-[68%] h-px w-[25%] -rotate-[9deg] bg-gradient-to-r from-transparent via-[#d8b56c]/28 to-transparent" />
+        <div className="absolute left-[49.6%] top-[31%] h-1 w-1 rounded-full bg-[#8ce8dc] shadow-[0_0_22px_6px_rgba(67,194,180,0.55)]" />
       </motion.div>
 
-      {/* Grain removes the sterile CGI finish. */}
       <div
-        className="pointer-events-none absolute inset-0 z-[6] opacity-[0.055] mix-blend-soft-light"
+        className="pointer-events-none absolute inset-0 z-[7] opacity-[0.06] mix-blend-soft-light"
         style={{
           backgroundImage:
-            'url("data:image/svg+xml,%3Csvg viewBox=%270 0 180 180%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.85%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%27.65%27/%3E%3C/svg%3E")',
+            'url("data:image/svg+xml,%3Csvg viewBox=%270 0 180 180%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.85%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25 height=%27100%25 filter=%27url(%23n)%27 opacity=%27.65%27/%3E%3C/svg%3E")',
         }}
       />
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[7] h-[44%] bg-gradient-to-b from-[#020809]/90 via-[#020809]/35 to-transparent md:hidden" />
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-[8] bg-white"
+        style={{ opacity: impactOpacity }}
+      />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[9] h-[42%] bg-gradient-to-b from-[#020809]/92 via-[#020809]/38 to-transparent md:hidden" />
     </div>
   );
 }
