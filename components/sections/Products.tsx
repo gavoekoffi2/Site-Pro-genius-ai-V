@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties, type SyntheticEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Clock3, ExternalLink, Layers3, Monitor, Sparkles } from "lucide-react";
 import { deployedProjects, inProgressProjects, type ProjectShowcase } from "@/lib/data";
@@ -16,30 +16,63 @@ const filters: { value: Filter; label: string; icon: typeof Layers3 }[] = [
 ];
 
 function ProjectCard({ project, index }: { project: ProjectShowcase; index: number }) {
-  const featured = index === 0;
-  const columnClass = featured
-    ? "md:col-span-12"
-    : index < 3
-      ? "md:col-span-6"
-      : "md:col-span-6 xl:col-span-4";
+  const previewFrameRef = useRef<HTMLDivElement>(null);
+  const previewImageRef = useRef<HTMLImageElement>(null);
+  const [previewTour, setPreviewTour] = useState({ active: false, distance: 0, duration: 1.1 });
+
+  const measurePreview = (image?: HTMLImageElement) => {
+    const frame = previewFrameRef.current;
+    const preview = image ?? previewImageRef.current;
+    if (!frame || !preview) return { distance: 0, duration: 1.1 };
+
+    const distance = Math.max(0, preview.getBoundingClientRect().height - frame.clientHeight);
+    // Vitesse constante : la visite reste lisible, quelle que soit la longueur de la page.
+    const duration = Math.min(36, Math.max(7, distance / 105));
+    return { distance, duration };
+  };
+
+  const startPreviewTour = () => {
+    const { distance, duration } = measurePreview();
+    setPreviewTour({ active: true, distance, duration });
+  };
+
+  const resetPreviewTour = () => {
+    setPreviewTour((current) => ({ ...current, active: false, duration: 1.15 }));
+  };
+
+  const handlePreviewLoad = (event: SyntheticEvent<HTMLImageElement>) => {
+    if (!previewTour.active) return;
+    const { distance, duration } = measurePreview(event.currentTarget);
+    setPreviewTour({ active: true, distance, duration });
+  };
 
   const content = (
     <article
-      className={`project-card group relative h-full overflow-hidden rounded-[1.5rem] border border-white/[0.09] bg-[#07111b]/95 shadow-[0_30px_100px_rgba(0,0,0,.32)] transition duration-700 hover:-translate-y-1 hover:border-[#5D9CBB]/45 hover:shadow-[0_35px_120px_rgba(21,63,107,.26)] ${featured ? "xl:grid xl:grid-cols-[minmax(0,1.45fr)_minmax(20rem,.55fr)]" : ""}`}
+      className="project-card group relative h-full overflow-hidden rounded-[1.5rem] border border-white/[0.09] bg-[#07111b]/95 shadow-[0_30px_100px_rgba(0,0,0,.32)] transition duration-700 hover:-translate-y-1 hover:border-[#5D9CBB]/45 hover:shadow-[0_35px_120px_rgba(21,63,107,.26)]"
+      onMouseEnter={startPreviewTour}
+      onMouseLeave={resetPreviewTour}
+      onFocus={startPreviewTour}
+      onBlur={resetPreviewTour}
       style={{
         "--project-accent": project.accent,
-        "--preview-rest": featured ? "32rem" : "24rem",
       } as CSSProperties}
     >
-      <div className={`relative overflow-hidden bg-[#06101a] ${featured ? "h-[24rem] xl:h-[32rem]" : "h-[23rem] md:h-[24rem]"}`}>
+      <div ref={previewFrameRef} className="relative h-[19rem] overflow-hidden bg-[#06101a] sm:h-[21rem] md:h-[22rem]">
         {project.preview ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              ref={previewImageRef}
               src={project.preview}
               alt={`Aperçu du projet ${project.name}`}
               className="project-preview-image absolute left-0 top-0 h-auto w-full"
               loading={index < 2 ? "eager" : "lazy"}
+              onLoad={handlePreviewLoad}
+              style={{
+                transform: `translate3d(0, ${previewTour.active ? -previewTour.distance : 0}px, 0)`,
+                transitionDuration: `${previewTour.duration}s`,
+                transitionTimingFunction: previewTour.active ? "linear" : "cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06101a]/95 via-transparent to-black/10" />
             <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100 [background:radial-gradient(circle_at_70%_30%,color-mix(in_srgb,var(--project-accent)_28%,transparent),transparent_50%)]" />
@@ -74,16 +107,16 @@ function ProjectCard({ project, index }: { project: ProjectShowcase; index: numb
         )}
       </div>
 
-      <div className={`relative flex flex-col p-6 md:p-8 ${featured ? "xl:justify-between xl:p-10" : ""}`}>
+      <div className="relative flex flex-col p-6 md:p-7">
         <div>
           <div className="mb-5 flex items-center justify-between gap-4">
             <span className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#5D9CBB]">{project.category}</span>
             <span className="font-display text-xs text-white/25">{String(index + 1).padStart(2, "0")}</span>
           </div>
-          <h3 className={`font-display font-medium leading-none tracking-[-0.04em] text-white ${featured ? "text-4xl md:text-5xl xl:text-[3.4rem]" : "text-3xl"}`}>
+          <h3 className="font-display text-3xl font-medium leading-none tracking-[-0.04em] text-white">
             {project.name}
           </h3>
-          <p className={`mt-4 max-w-xl leading-relaxed text-[#b3c4d1] ${featured ? "text-base md:text-lg" : "text-sm"}`}>{project.tagline}</p>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#b3c4d1]">{project.tagline}</p>
         </div>
 
         <div className="mt-8">
@@ -108,7 +141,7 @@ function ProjectCard({ project, index }: { project: ProjectShowcase; index: numb
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       exit={{ opacity: 0, y: 16, filter: "blur(6px)" }}
       transition={{ duration: 0.6, delay: Math.min(index * 0.055, 0.28), ease: [0.22, 1, 0.36, 1] }}
-      className={`col-span-12 h-full ${columnClass}`}
+      className="col-span-12 h-full md:col-span-6 xl:col-span-4"
     >
       {project.url ? (
         <a

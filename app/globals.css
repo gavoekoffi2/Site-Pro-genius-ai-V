@@ -266,24 +266,14 @@ body {
 /* Interactive, real full-page product previews. */
 .project-preview-image {
   transform: translate3d(0, 0, 0);
-  transition: transform 10s cubic-bezier(0.2, 0.72, 0.2, 1);
+  transition-property: transform;
   will-change: transform;
-}
-
-.project-card:hover .project-preview-image,
-.project-card:focus-within .project-preview-image {
-  transform: translate3d(0, calc(-100% + var(--preview-rest, 24rem)), 0);
 }
 
 @media (hover: none) {
   .project-preview-image {
-    animation: project-preview-tour 16s ease-in-out infinite alternate;
+    animation: none;
   }
-}
-
-@keyframes project-preview-tour {
-  0%, 16% { transform: translate3d(0, 0, 0); }
-  84%, 100% { transform: translate3d(0, calc(-100% + 22rem), 0); }
 }
 
 /* Reduced motion — kill the theatrics */
