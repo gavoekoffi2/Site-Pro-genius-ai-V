@@ -280,6 +280,41 @@ body {
 @keyframes hero-signal { 0% { transform: translateX(-110%); opacity: 0; } 25%,65% { opacity: 1; } 100% { transform: translateX(220%); opacity: 0; } }
 @keyframes hud-scan { 0%,100% { transform: translateY(-9px); opacity: .25; } 50% { transform: translateY(9px); opacity: 1; } }
 
+/* Globe héro : orbites optiques nettes, sans voile solaire délavé. */
+.hero-orbit-sheen::before,
+.hero-orbit-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 4%;
+  border-radius: 50%;
+  border: 1px solid rgba(85, 211, 255, 0.18);
+  box-shadow: inset 0 0 34px rgba(10, 133, 255, 0.08), 0 0 42px rgba(0, 195, 255, 0.08);
+  animation: hero-orbit-premium 18s linear infinite;
+}
+.hero-orbit-sheen::after {
+  inset: 13%;
+  border-color: rgba(255, 177, 85, 0.12);
+  animation-duration: 25s;
+  animation-direction: reverse;
+}
+@keyframes hero-orbit-premium {
+  from { transform: rotate(0deg) scaleX(1) scaleY(.78); }
+  50% { transform: rotate(180deg) scaleX(.88) scaleY(1); }
+  to { transform: rotate(360deg) scaleX(1) scaleY(.78); }
+}
+
+/* Traitement photographique premium : peau riche et métal froid, sans les laver. */
+.premium-human-hand {
+  filter: saturate(1.16) contrast(1.1) brightness(1.03)
+    drop-shadow(0 24px 36px rgba(0, 0, 0, 0.56))
+    drop-shadow(0 0 18px rgba(255, 144, 61, 0.13));
+}
+.premium-robot-hand {
+  filter: saturate(1.08) contrast(1.16) brightness(1.1)
+    drop-shadow(0 25px 38px rgba(0, 0, 0, 0.62))
+    drop-shadow(0 0 21px rgba(64, 201, 255, 0.2));
+}
+
 /* Chaque réalisation IA reçoit un langage visuel vivant différent. */
 .ai-telemetry { --ai-accent:#83e8dd; opacity:.52; transition:opacity .65s ease; mix-blend-mode:screen; }
 .group:hover .ai-telemetry { opacity:.94; }

@@ -41,7 +41,11 @@ function project(lat: number, lon: number, centerLon: number, radius: number, cx
   };
 }
 
-export default function DigitalGlobe() {
+interface DigitalGlobeProps {
+  variant?: "section" | "hero";
+}
+
+export default function DigitalGlobe({ variant = "section" }: DigitalGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
 
@@ -72,14 +76,14 @@ export default function DigitalGlobe() {
       const t = reduced ? 0 : (now - start) / 1000;
       const cx = width / 2;
       const cy = height / 2;
-      const radius = Math.min(width, height) * 0.365;
+      const radius = Math.min(width, height) * (variant === "hero" ? 0.402 : 0.365);
       // L'Afrique reste toujours face au visiteur ; seule une respiration orbitale anime la planète.
       const centerLon = 17 + Math.sin(t * 0.22) * 5.5;
       ctx.clearRect(0, 0, width, height);
 
       const outer = ctx.createRadialGradient(cx, cy, radius * 0.28, cx, cy, radius * 1.42);
-      outer.addColorStop(0, "rgba(26,111,153,.16)");
-      outer.addColorStop(0.62, "rgba(7,66,93,.10)");
+      outer.addColorStop(0, variant === "hero" ? "rgba(20,122,211,.28)" : "rgba(26,111,153,.16)");
+      outer.addColorStop(0.62, variant === "hero" ? "rgba(0,207,224,.11)" : "rgba(7,66,93,.10)");
       outer.addColorStop(1, "rgba(2,8,13,0)");
       ctx.fillStyle = outer;
       ctx.fillRect(0, 0, width, height);
@@ -89,9 +93,9 @@ export default function DigitalGlobe() {
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
       ctx.clip();
       const sphere = ctx.createRadialGradient(cx - radius * 0.36, cy - radius * 0.42, radius * 0.08, cx, cy, radius * 1.08);
-      sphere.addColorStop(0, "rgba(41,137,174,.24)");
-      sphere.addColorStop(0.48, "rgba(7,35,53,.74)");
-      sphere.addColorStop(1, "rgba(1,8,14,.98)");
+      sphere.addColorStop(0, variant === "hero" ? "rgba(53,162,255,.42)" : "rgba(41,137,174,.24)");
+      sphere.addColorStop(0.38, variant === "hero" ? "rgba(6,48,91,.88)" : "rgba(7,35,53,.74)");
+      sphere.addColorStop(1, variant === "hero" ? "rgba(0,4,13,1)" : "rgba(1,8,14,.98)");
       ctx.fillStyle = sphere;
       ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
 
@@ -105,7 +109,7 @@ export default function DigitalGlobe() {
           if (!p.visible) { begun = false; continue; }
           if (!begun) { ctx.moveTo(p.x, p.y); begun = true; } else ctx.lineTo(p.x, p.y);
         }
-        ctx.strokeStyle = "rgba(91,165,192,.11)";
+        ctx.strokeStyle = variant === "hero" ? "rgba(88,201,255,.18)" : "rgba(91,165,192,.11)";
         ctx.stroke();
       }
       for (let lon = -160; lon <= 180; lon += 20) {
@@ -116,7 +120,7 @@ export default function DigitalGlobe() {
           if (!p.visible) { begun = false; continue; }
           if (!begun) { ctx.moveTo(p.x, p.y); begun = true; } else ctx.lineTo(p.x, p.y);
         }
-        ctx.strokeStyle = "rgba(91,165,192,.09)";
+        ctx.strokeStyle = variant === "hero" ? "rgba(88,201,255,.14)" : "rgba(91,165,192,.09)";
         ctx.stroke();
       }
 
@@ -141,15 +145,15 @@ export default function DigitalGlobe() {
       });
       ctx.closePath();
       const africaGlow = ctx.createLinearGradient(cx - radius * 0.2, cy - radius * 0.55, cx + radius * 0.28, cy + radius * 0.58);
-      africaGlow.addColorStop(0, "rgba(117,228,218,.34)");
-      africaGlow.addColorStop(0.52, "rgba(38,120,157,.31)");
-      africaGlow.addColorStop(1, "rgba(196,115,56,.34)");
+      africaGlow.addColorStop(0, variant === "hero" ? "rgba(71,239,255,.78)" : "rgba(117,228,218,.34)");
+      africaGlow.addColorStop(0.48, variant === "hero" ? "rgba(17,119,222,.68)" : "rgba(38,120,157,.31)");
+      africaGlow.addColorStop(1, variant === "hero" ? "rgba(249,166,74,.72)" : "rgba(196,115,56,.34)");
       ctx.fillStyle = africaGlow;
-      ctx.shadowColor = "rgba(89,222,210,.72)";
-      ctx.shadowBlur = 23 + Math.sin(t * 1.4) * 4;
+      ctx.shadowColor = variant === "hero" ? "rgba(38,215,255,.92)" : "rgba(89,222,210,.72)";
+      ctx.shadowBlur = (variant === "hero" ? 38 : 23) + Math.sin(t * 1.4) * 4;
       ctx.fill();
       ctx.lineWidth = 1.7;
-      ctx.strokeStyle = "rgba(154,244,229,.9)";
+      ctx.strokeStyle = variant === "hero" ? "rgba(188,250,255,.98)" : "rgba(154,244,229,.9)";
       ctx.stroke();
       ctx.shadowBlur = 0;
 
@@ -159,7 +163,7 @@ export default function DigitalGlobe() {
           if (!inAfrica(lat, lon)) continue;
           const p = project(lat, lon, centerLon, radius, cx, cy);
           const pulse = 0.72 + 0.28 * Math.sin(t * 2.2 + lat * 0.19 + lon * 0.13);
-          ctx.fillStyle = `rgba(194,241,232,${0.34 + pulse * 0.54})`;
+          ctx.fillStyle = variant === "hero" ? `rgba(218,252,255,${0.42 + pulse * 0.56})` : `rgba(194,241,232,${0.34 + pulse * 0.54})`;
           ctx.beginPath();
           ctx.arc(p.x, p.y, 0.75 + pulse * 0.75, 0, Math.PI * 2);
           ctx.fill();
@@ -194,7 +198,7 @@ export default function DigitalGlobe() {
       // Atmosphère, limbe et orbites extérieures.
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(128,224,220,.42)";
+      ctx.strokeStyle = variant === "hero" ? "rgba(113,224,255,.72)" : "rgba(128,224,220,.42)";
       ctx.lineWidth = 1.15;
       ctx.shadowColor = "rgba(58,173,186,.55)";
       ctx.shadowBlur = 16;
@@ -238,14 +242,18 @@ export default function DigitalGlobe() {
       observer.disconnect();
       resizeObserver.disconnect();
     };
-  }, [reduced]);
+  }, [reduced, variant]);
 
   return (
-    <div className="relative aspect-square w-full max-w-[620px]" data-digital-globe>
+    <div
+      className={variant === "hero" ? "relative aspect-square w-[min(96vw,96vh)] max-w-none" : "relative aspect-square w-full max-w-[620px]"}
+      data-digital-globe
+      data-globe-variant={variant}
+    >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" role="img" aria-label="Globe numérique tridimensionnel mettant l'Afrique au premier plan" />
 
       <motion.div
-        className="absolute left-[6%] top-[17%] rounded-lg border border-[#72d9d1]/20 bg-[#041018]/72 px-3 py-2 backdrop-blur-xl"
+        className={`${variant === "hero" ? "hidden" : ""} absolute left-[6%] top-[17%] rounded-lg border border-[#72d9d1]/20 bg-[#041018]/72 px-3 py-2 backdrop-blur-xl`}
         animate={reduced ? undefined : { y: [0, -7, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -254,7 +262,7 @@ export default function DigitalGlobe() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-[13%] right-[2%] min-w-36 rounded-xl border border-[#c58b61]/20 bg-[#080f14]/78 p-3 backdrop-blur-xl"
+        className={`${variant === "hero" ? "hidden" : ""} absolute bottom-[13%] right-[2%] min-w-36 rounded-xl border border-[#c58b61]/20 bg-[#080f14]/78 p-3 backdrop-blur-xl`}
         animate={reduced ? undefined : { y: [0, 8, 0] }}
         transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
       >

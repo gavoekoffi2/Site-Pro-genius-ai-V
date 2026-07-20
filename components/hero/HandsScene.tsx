@@ -1,14 +1,15 @@
 'use client';
-/* eslint-disable @next/next/no-img-element -- native transparent photographic plates are required for the scroll composite */
 
 import { useEffect, useState, type RefObject } from 'react';
 import {
+  animate,
   motion,
   useMotionValue,
   useReducedMotion,
   useSpring,
   useTransform,
 } from 'framer-motion';
+import DigitalGlobe from '@/components/sections/DigitalGlobe';
 
 interface HandsSceneProps {
   progress: RefObject<number>;
@@ -26,6 +27,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
   const reduceMotion = useReducedMotion();
   const [ready, setReady] = useState(false);
   const scrollProgress = useMotionValue(progress.current ?? 0);
+  const introProgress = useMotionValue(0);
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -79,14 +81,26 @@ export default function HandsScene({ progress }: HandsSceneProps) {
 
   useEffect(() => {
     setReady(true);
+    const introControls = reduceMotion
+      ? undefined
+      : animate(introProgress, 0.3, {
+          duration: 3.1,
+          delay: 0.35,
+          ease: [0.22, 1, 0.36, 1],
+        });
     let frame = 0;
     const syncProgress = () => {
-      scrollProgress.set(progress.current ?? 0);
+      // Le mouvement est visible dès l'arrivée, puis le scroll prend la main et
+      // conduit les deux index jusqu'au point de contact calibré.
+      scrollProgress.set(Math.max(progress.current ?? 0, introProgress.get()));
       frame = window.requestAnimationFrame(syncProgress);
     };
     frame = window.requestAnimationFrame(syncProgress);
-    return () => window.cancelAnimationFrame(frame);
-  }, [progress, scrollProgress]);
+    return () => {
+      introControls?.stop();
+      window.cancelAnimationFrame(frame);
+    };
+  }, [introProgress, progress, reduceMotion, scrollProgress]);
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     if (reduceMotion) return;
@@ -102,30 +116,29 @@ export default function HandsScene({ progress }: HandsSceneProps) {
 
   return (
     <div
-      className="absolute inset-0 overflow-hidden bg-[#020809]"
+      className="absolute inset-0 overflow-hidden bg-[#01040a]"
       aria-hidden="true"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
       data-hands-scene
     >
       <motion.div
-        className="absolute -inset-[3%]"
+        className="absolute -inset-[3%] z-0 flex items-center justify-center"
         style={{ x: backgroundX, y: backgroundY, scale: sceneScale }}
         initial={{ opacity: 0 }}
         animate={{ opacity: ready ? 1 : 0 }}
         transition={{ duration: 1.35, ease: 'easeOut' }}
       >
-        <img
-          src="/media/africa-ai-background.jpg"
-          alt=""
-          className="h-full w-full object-cover object-center"
-          draggable={false}
-        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_51%,rgba(9,51,98,0.58)_0%,rgba(1,13,31,0.9)_47%,#01040a_82%)]" />
+        <div className="relative top-[4%] flex items-center justify-center opacity-[0.96] drop-shadow-[0_0_80px_rgba(20,151,255,0.24)]">
+          <DigitalGlobe variant="hero" />
+        </div>
+        <div className="hero-orbit-sheen pointer-events-none absolute left-1/2 top-[53%] h-[82vmin] w-[82vmin] -translate-x-1/2 -translate-y-1/2 rounded-full" />
       </motion.div>
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_53%,transparent_0%,rgba(2,8,9,0.05)_30%,rgba(2,8,9,0.74)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,9,0.8)_0%,rgba(2,8,9,0.14)_31%,rgba(2,8,9,0.1)_68%,rgba(2,8,9,0.7)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,8,9,0.56)_0%,transparent_26%,transparent_72%,rgba(2,8,9,0.94)_100%)]" />
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_50%_53%,transparent_0%,rgba(1,4,10,0.03)_36%,rgba(1,4,10,0.82)_100%)]" />
+      <div className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(1,4,10,0.9)_0%,rgba(1,4,10,0.06)_27%,rgba(1,4,10,0.04)_73%,rgba(1,4,10,0.88)_100%)]" />
+      <div className="absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(1,4,10,0.72)_0%,transparent_24%,transparent_72%,rgba(1,4,10,0.98)_100%)]" />
 
       {/*
         Un même cadre de composition pour les deux plaques évite toute dérive du
@@ -146,7 +159,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
             <motion.img
               src="/media/african-human-hand.png"
               alt=""
-              className="h-full w-full select-none object-contain opacity-[0.98] drop-shadow-[0_22px_34px_rgba(0,0,0,0.42)]"
+              className="premium-human-hand h-full w-full select-none object-contain opacity-[0.99]"
               style={{ x: humanParallax }}
               draggable={false}
             />
@@ -166,7 +179,7 @@ export default function HandsScene({ progress }: HandsSceneProps) {
             <motion.img
               src="/media/robot-hand.png"
               alt=""
-              className="h-full w-full select-none object-contain opacity-[0.99] drop-shadow-[0_24px_38px_rgba(0,0,0,0.48)]"
+              className="premium-robot-hand h-full w-full select-none object-contain opacity-[0.99]"
               style={{ x: robotParallax }}
               draggable={false}
             />
