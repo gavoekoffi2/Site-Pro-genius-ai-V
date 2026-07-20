@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type CSSProperties, type SyntheticEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type SyntheticEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Clock3, ExternalLink, Layers3, Monitor, Sparkles } from "lucide-react";
 import { deployedProjects, inProgressProjects, type ProjectShowcase } from "@/lib/data";
@@ -18,6 +18,7 @@ const filters: { value: Filter; label: string; icon: typeof Layers3 }[] = [
 function ProjectCard({ project, index }: { project: ProjectShowcase; index: number }) {
   const previewFrameRef = useRef<HTMLDivElement>(null);
   const previewImageRef = useRef<HTMLImageElement>(null);
+  const tourFrameRef = useRef<number | null>(null);
   const [previewTour, setPreviewTour] = useState({ active: false, distance: 0, duration: 1.1 });
 
   const measurePreview = (image?: HTMLImageElement) => {
@@ -26,19 +27,33 @@ function ProjectCard({ project, index }: { project: ProjectShowcase; index: numb
     if (!frame || !preview) return { distance: 0, duration: 1.1 };
 
     const distance = Math.max(0, preview.getBoundingClientRect().height - frame.clientHeight);
-    // Vitesse constante : la visite reste lisible, quelle que soit la longueur de la page.
-    const duration = Math.min(36, Math.max(7, distance / 105));
+    // Environ 62 px/s : une vraie visite lisible, même sur les pages très longues.
+    const duration = Math.min(90, Math.max(12, distance / 62));
     return { distance, duration };
   };
 
   const startPreviewTour = () => {
     const { distance, duration } = measurePreview();
-    setPreviewTour({ active: true, distance, duration });
+    if (tourFrameRef.current) window.cancelAnimationFrame(tourFrameRef.current);
+
+    // Deux images navigateur séparent explicitement la position initiale du
+    // déplacement. Le navigateur ne peut ainsi jamais sauter directement au bas.
+    setPreviewTour({ active: false, distance, duration: 1.15 });
+    tourFrameRef.current = window.requestAnimationFrame(() => {
+      tourFrameRef.current = window.requestAnimationFrame(() => {
+        setPreviewTour({ active: true, distance, duration });
+      });
+    });
   };
 
   const resetPreviewTour = () => {
+    if (tourFrameRef.current) window.cancelAnimationFrame(tourFrameRef.current);
     setPreviewTour((current) => ({ ...current, active: false, duration: 1.15 }));
   };
+
+  useEffect(() => () => {
+    if (tourFrameRef.current) window.cancelAnimationFrame(tourFrameRef.current);
+  }, []);
 
   const handlePreviewLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     if (!previewTour.active) return;

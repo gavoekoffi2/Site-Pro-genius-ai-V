@@ -17,9 +17,10 @@ interface HandsSceneProps {
 /**
  * Rencontre photographique humain × IA.
  *
- * Les deux plaques transparentes partagent exactement le même cadre 1015 × 580 :
- * leur position finale garantit donc que seuls les bouts des index se rejoignent.
- * Le scroll anime les plaques séparément avant de déclencher l'impact au contact.
+ * Les deux plaques transparentes partagent le même cadre 1015 × 580, mais leurs
+ * index n'ont pas les mêmes coordonnées dans les fichiers sources. La main
+ * robotique est retournée et chaque plaque est compensée afin que seuls les
+ * bouts des index se rejoignent exactement au centre.
  */
 export default function HandsScene({ progress }: HandsSceneProps) {
   const reduceMotion = useReducedMotion();
@@ -37,25 +38,25 @@ export default function HandsScene({ progress }: HandsSceneProps) {
     scrollProgress,
     [0, 0.12, 0.58, 0.68, 0.74, 1],
     reduceMotion
-      ? ['0vw', '0vw', '0vw', '0vw', '0vw', '0vw']
-      : ['-38vw', '-36vw', '-9vw', '0vw', '0.55vw', '0vw']
+      ? ['-16vw', '-15vw', '-5vw', '0vw', '0.25vw', '0vw']
+      : ['-26vw', '-24vw', '-7vw', '0vw', '0.5vw', '0vw']
   );
   const robotApproach = useTransform(
     scrollProgress,
     [0, 0.12, 0.58, 0.68, 0.74, 1],
     reduceMotion
-      ? ['0vw', '0vw', '0vw', '0vw', '0vw', '0vw']
-      : ['38vw', '36vw', '9vw', '0vw', '-0.55vw', '0vw']
+      ? ['16vw', '15vw', '5vw', '0vw', '-0.25vw', '0vw']
+      : ['26vw', '24vw', '7vw', '0vw', '-0.5vw', '0vw']
   );
   const humanRotation = useTransform(
     scrollProgress,
-    [0, 0.18, 0.62, 0.7, 1],
-    reduceMotion ? [0, 0, 0, 0, 0] : [-8, -7, -1.5, 0.35, 0]
+    [0, 0.18, 0.62, 0.68, 1],
+    reduceMotion ? [0, 0, 0, 0, 0] : [-8, -7, -1.5, 0, 0]
   );
   const robotRotation = useTransform(
     scrollProgress,
-    [0, 0.18, 0.62, 0.7, 1],
-    reduceMotion ? [0, 0, 0, 0, 0] : [8, 7, 1.5, -0.35, 0]
+    [0, 0.18, 0.62, 0.68, 1],
+    reduceMotion ? [0, 0, 0, 0, 0] : [8, 7, 1.5, 0, 0]
   );
 
   const humanParallax = useTransform(parallaxX, [-1, 1], [-7, 7]);
@@ -66,8 +67,8 @@ export default function HandsScene({ progress }: HandsSceneProps) {
 
   const handScale = useTransform(
     scrollProgress,
-    [0, 0.2, 0.62, 0.72, 1],
-    reduceMotion ? [1, 1, 1, 1, 1] : [0.9, 0.91, 0.985, 1.012, 1]
+    [0, 0.2, 0.62, 0.68, 0.74, 1],
+    reduceMotion ? [1, 1, 1, 1, 1, 1] : [0.9, 0.91, 0.985, 1, 1.008, 1]
   );
   const contactOpacity = useTransform(scrollProgress, [0.63, 0.68, 0.73, 0.82, 1], [0, 0.45, 1, 0.72, 0.42]);
   const contactScale = useTransform(scrollProgress, [0.63, 0.7, 0.78, 1], [0.15, 1, 1.7, 2.15]);
@@ -140,13 +141,16 @@ export default function HandsScene({ progress }: HandsSceneProps) {
           transition={{ opacity: { duration: 0.95, delay: 0.12 } }}
           data-human-hand
         >
-          <motion.img
-            src="/media/african-human-hand.png"
-            alt=""
-            className="h-full w-full select-none object-contain opacity-[0.98] drop-shadow-[0_22px_34px_rgba(0,0,0,0.42)]"
-            style={{ x: humanParallax }}
-            draggable={false}
-          />
+          <div className="absolute inset-0" style={{ transform: 'translate(-37.4%, -8.6%)' }}>
+            <span className="pointer-events-none absolute left-[87.4%] top-[58.6%] h-px w-px opacity-0" data-human-index-tip />
+            <motion.img
+              src="/media/african-human-hand.png"
+              alt=""
+              className="h-full w-full select-none object-contain opacity-[0.98] drop-shadow-[0_22px_34px_rgba(0,0,0,0.42)]"
+              style={{ x: humanParallax }}
+              draggable={false}
+            />
+          </div>
         </motion.div>
 
         <motion.div
@@ -157,13 +161,16 @@ export default function HandsScene({ progress }: HandsSceneProps) {
           transition={{ opacity: { duration: 0.95, delay: 0.2 } }}
           data-robot-hand
         >
-          <motion.img
-            src="/media/robot-hand.png"
-            alt=""
-            className="h-full w-full select-none object-contain opacity-[0.99] drop-shadow-[0_24px_38px_rgba(0,0,0,0.48)]"
-            style={{ x: robotParallax }}
-            draggable={false}
-          />
+          <div className="absolute inset-0" style={{ transform: 'translate(41.8%, 5.2%) scaleX(-1)' }}>
+            <span className="pointer-events-none absolute left-[91.7%] top-[44.8%] h-px w-px opacity-0" data-robot-index-tip />
+            <motion.img
+              src="/media/robot-hand.png"
+              alt=""
+              className="h-full w-full select-none object-contain opacity-[0.99] drop-shadow-[0_24px_38px_rgba(0,0,0,0.48)]"
+              style={{ x: robotParallax }}
+              draggable={false}
+            />
+          </div>
         </motion.div>
       </div>
 

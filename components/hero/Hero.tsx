@@ -34,13 +34,6 @@ export default function Hero() {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setReduced(prefersReduced);
 
-    if (prefersReduced) {
-      progress.current = 1;
-      if (slogan.current) gsap.set(slogan.current, { opacity: 1, y: 0, filter: "blur(0px)" });
-      if (intro.current) gsap.set(intro.current, { opacity: 0 });
-      return;
-    }
-
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: section.current,
@@ -83,7 +76,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={section} className="relative" style={{ height: reduced ? "100vh" : "240vh" }}>
+    <section ref={section} className="relative" style={{ height: reduced ? "180vh" : "240vh" }}>
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         {/* Halo ambiant derrière la scène */}
         <div
