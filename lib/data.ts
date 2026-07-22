@@ -28,6 +28,7 @@ export type ProjectShowcase = {
 };
 
 export const deployedProjects: ProjectShowcase[] = [
+  { slug: "emefa", name: "EMEFA", category: "Assistante vocale agentique", tagline: "Une assistante vocale en temps réel, directe, interruptible et capable d’exécuter de vraies tâches.", url: "https://emefa.76.13.129.252.sslip.io/", preview: "/projects/emefa.webp", accent: "#ACCFD6", status: "deployed", kind: "ai" },
   { slug: "graphiste-gpt", name: "Graphiste GPT", category: "Création visuelle IA", tagline: "Des identités visuelles et des campagnes prêtes à marquer les esprits.", url: "https://smart-poster-scribe.vercel.app", preview: "/projects/graphiste-gpt.webp", accent: "#B7561D", status: "deployed", kind: "ai" },
   { slug: "prosocial-ai", name: "ProSocial AI", category: "Réseaux sociaux", tagline: "La création, la planification et la publication réunies dans un même espace intelligent.", url: "https://auto-post-gen.76.13.129.252.sslip.io", preview: "/projects/prosocial-ai.webp", accent: "#5D9CBB", status: "deployed", kind: "ai" },
   { slug: "cutforge", name: "CutForge", category: "Montage vidéo IA", tagline: "Des vidéos rythmées, sous-titrées et prêtes à publier en quelques minutes.", url: "https://autoedit.srv1305401.hstgr.cloud", preview: "/projects/cutforge.webp", accent: "#27689D", status: "deployed", kind: "ai" },
@@ -40,7 +41,6 @@ export const deployedProjects: ProjectShowcase[] = [
 ];
 
 export const inProgressProjects: ProjectShowcase[] = [
-  { slug: "emefa", name: "EMEFA", category: "Assistante vocale en temps réel", tagline: "Une assistante directe, interruptible et capable d'exécuter réellement les tâches confiées.", accent: "#ACCFD6", status: "building", kind: "ai" },
   { slug: "architask-ai", name: "ArchiTask AI", category: "Architecture générative", tagline: "Du plan 2D à une expérience 3D immersive pour concevoir et présenter autrement.", accent: "#27689D", status: "building", kind: "ai" },
 ];
 
