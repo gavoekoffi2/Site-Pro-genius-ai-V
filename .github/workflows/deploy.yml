@@ -46,10 +46,10 @@ jobs:
       - name: Empêcher Jekyll de filtrer les fichiers _next
         run: touch out/.nojekyll
 
-      - uses: actions/configure-pages@v5
-        with:
-          # Active GitHub Pages sur le dépôt s'il ne l'est pas encore.
-          enablement: true
+      # Pas de `configure-pages` : sa seule utilité serait de fournir le
+      # base_path, que ce workflow calcule déjà lui-même. Et son option
+      # `enablement` échoue — le jeton d'Actions n'a pas le droit de créer un
+      # site Pages, cela reste une action manuelle du propriétaire du dépôt.
 
       - uses: actions/upload-pages-artifact@v3
         with:
