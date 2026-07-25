@@ -59,7 +59,13 @@ export default function DigitalGlobe() {
       dots.push({ x, y, z, africa: inAfrica(lat, lon) });
     }
 
-    let rot = -0.4;
+    // Rotation qui amène le centre de l'Afrique (0°N, 20°E) face au regard.
+    // On oscille autour de cette valeur au lieu de tourner en continu : le
+    // continent doit rester visible et reconnaissable en permanence.
+    const AFRICA_FACING = -1.221;
+    const SWING = 0.34;
+    let t = 0;
+    let rot = AFRICA_FACING;
     let raf = 0;
     let visible = true;
 
@@ -70,7 +76,8 @@ export default function DigitalGlobe() {
     const draw = () => {
       if (!visible) return;
       ctx.clearRect(0, 0, SIZE, SIZE);
-      rot += 0.0022;
+      t += 0.0022;
+      rot = AFRICA_FACING + Math.sin(t) * SWING;
 
       // halo
       const halo = ctx.createRadialGradient(cx, cy, R * 0.5, cx, cy, R * 1.35);

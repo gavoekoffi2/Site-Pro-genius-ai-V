@@ -37,6 +37,25 @@
 
 html {
   scroll-behavior: auto;
+  /* Le Preloader passe `html` en overflow:hidden pendant 2,4 s : sans gouttière
+     réservée, la barre de défilement disparaît puis revient, la largeur du
+     viewport change de ~10px et toute la page se décale (CLS mesuré à 0,272).
+     Réserver la gouttière en permanence supprime ce décalage. */
+  scrollbar-gutter: stable;
+}
+
+/* ————————————————————————————————————————
+   Cadrage latéral.
+
+   Les états initiaux de `Reveal` décalent leurs enfants de 44px à l'horizontale
+   (directions left/right) : la page restait défilable de ~30px sur le côté.
+   `clip` et non `hidden` sur les DEUX éléments : `hidden` fait de `body` un
+   conteneur de défilement, ce qui casse les `position: sticky` du hero et de
+   l'acte du globe. `clip` cadre sans créer de conteneur de défilement.
+———————————————————————————————————————— */
+html,
+body {
+  overflow-x: clip;
 }
 
 html.lenis,
@@ -52,7 +71,6 @@ body {
   background: var(--color-void);
   color: var(--color-frost);
   font-family: var(--font-body);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -218,7 +236,10 @@ body {
   font-weight: 500;
   color: var(--color-frost);
   border: 1px solid rgba(255, 175, 110, 0.25);
-  background: rgba(255, 255, 255, 0.02);
+  /* Teinte « void » plutôt que blanc translucide : invisible sur les sections
+     plates (le fond de page EST --color-void) mais garantit le contraste du
+     libellé quand le bouton se superpose à une image, comme dans le hero. */
+  background: rgba(7, 5, 3, 0.55);
   backdrop-filter: blur(10px);
   transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
   overflow: hidden;

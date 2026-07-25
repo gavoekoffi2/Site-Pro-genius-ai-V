@@ -54,6 +54,28 @@ const fr = {
     ],
   },
 
+  globe: {
+    eyebrow: "Rayonnement",
+    /**
+     * Trois formulations ont été rédigées pour cet acte :
+     *   1. « L'Afrique propulse la prochaine intelligence. »   ← retenue
+     *   2. « L'intelligence africaine, connectée au monde. »
+     *   3. « Une intelligence créée ici. Déployée partout. »
+     * La première est celle qui prolonge le plus fidèlement le positionnement
+     * déjà écrit dans `about.body` (« elle doit la conduire »).
+     */
+    title: "L'Afrique propulse",
+    titleAccent: "la prochaine intelligence.",
+    sub: "Pro Genius AI transforme les ambitions, les talents et les réalités africaines en solutions intelligentes capables de rayonner à l'échelle mondiale.",
+    /** Mention obligatoire : les points lumineux sont conceptuels. */
+    disclaimer:
+      "Visualisation conceptuelle de pôles d'innovation — ne représente pas des implantations.",
+    /** Libellés des services reliés aux nœuds du continent. */
+    nodesLabel: "Ce que nous déployons depuis le continent",
+    a11y:
+      "Globe terrestre présentant l'Afrique au premier plan. Des nœuds lumineux s'allument à travers le continent, se connectent entre eux, puis des arcs de données s'étendent vers le reste du monde.",
+  },
+
   products: {
     eyebrow: "Écosystème",
     title: "Des produits qui travaillent pour vous.",
