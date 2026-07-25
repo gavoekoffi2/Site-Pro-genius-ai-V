@@ -6,6 +6,7 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NeuralBackground from "@/components/NeuralBackground";
+import { SITE_URL } from "@/lib/site";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -20,7 +21,6 @@ const inter = Inter({
 });
 
 const dict = getDictionary();
-const SITE_URL = "https://progenius.ai";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

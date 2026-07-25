@@ -1,0 +1,66 @@
+name: Déploiement GitHub Pages
+
+# Publie le site à chaque push sur la branche par défaut.
+# Le déclenchement manuel permet de republier sans nouveau commit.
+on:
+  push:
+    branches: [claude/pro-genius-ai-site-44n9g9]
+  workflow_dispatch:
+
+# Permissions requises par l'action de déploiement Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un seul déploiement à la fois ; on ne coupe pas un déploiement en cours.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Export statique
+        env:
+          GITHUB_PAGES: "true"
+          # Dépôt de projet : le site est servi sous /<nom-du-dépôt>.
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          # URL canonique réelle, pour les métadonnées, le sitemap et robots.txt.
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: npm run build
+
+      - name: Empêcher Jekyll de filtrer les fichiers _next
+        run: touch out/.nojekyll
+
+      - uses: actions/configure-pages@v5
+        with:
+          # Active GitHub Pages sur le dépôt s'il ne l'est pas encore.
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

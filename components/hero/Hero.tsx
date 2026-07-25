@@ -131,10 +131,9 @@ export default function Hero() {
         />
         <div className="grid-veil pointer-events-none absolute inset-0" aria-hidden />
 
-        {/* Mains photoréalistes — l'asset cinématographique */}
-        {mounted && (
-          <PhotorealHands progress={progress} vertical={vertical} staticContact={reduced} />
-        )}
+        {/* Mains photoréalistes — rendues côté serveur pour que le navigateur
+            trouve et précharge l'image LCP dès le HTML. */}
+        <PhotorealHands progress={progress} staticContact={reduced} />
 
         {/* Énergie du contact — uniquement si WebGL répond. Sans WebGL, les
             mains photoréalistes assurent seules la scène (repli complet). */}

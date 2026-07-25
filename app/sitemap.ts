@@ -1,7 +1,11 @@
 import type { MetadataRoute } from "next";
 import { blogPosts, products, services } from "@/lib/data";
+import { SITE_URL } from "@/lib/site";
 
-const BASE = "https://progenius.ai";
+// Requis par l'export statique : la route doit être générée au build.
+export const dynamic = "force-static";
+
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [

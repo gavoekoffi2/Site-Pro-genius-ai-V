@@ -284,6 +284,51 @@ body {
   transform: translateX(6px);
 }
 
+/* ————————————————————————————————————————
+   Hero — mains photoréalistes.
+
+   L'asset est affiché deux fois, chaque copie fondue à la moitié par un masque,
+   les deux moitiés glissant l'une vers l'autre. L'axe (horizontal sur desktop,
+   vertical sur mobile) est choisi ICI par media query et non en JavaScript :
+   le rendu est donc correct dès la première image, avant toute hydratation.
+   Le JS ne pilote qu'une variable, `--hands-gap`.
+———————————————————————————————————————— */
+.hero-hands {
+  --hands-gap: 8.5%;
+}
+
+.hero-hands-a,
+.hero-hands-b {
+  position: absolute;
+  inset: 0;
+  will-change: translate;
+}
+
+.hero-hands-a {
+  mask-image: linear-gradient(to right, #000 43%, transparent 52%);
+  -webkit-mask-image: linear-gradient(to right, #000 43%, transparent 52%);
+  translate: calc(-1 * var(--hands-gap)) 0;
+}
+
+.hero-hands-b {
+  mask-image: linear-gradient(to left, #000 43%, transparent 52%);
+  -webkit-mask-image: linear-gradient(to left, #000 43%, transparent 52%);
+  translate: var(--hands-gap) 0;
+}
+
+@media (max-width: 767px) {
+  .hero-hands-a {
+    mask-image: linear-gradient(to bottom, #000 43%, transparent 52%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 43%, transparent 52%);
+    translate: 0 calc(-1 * var(--hands-gap));
+  }
+  .hero-hands-b {
+    mask-image: linear-gradient(to top, #000 43%, transparent 52%);
+    -webkit-mask-image: linear-gradient(to top, #000 43%, transparent 52%);
+    translate: 0 var(--hands-gap);
+  }
+}
+
 /* Reduced motion — kill the theatrics */
 @media (prefers-reduced-motion: reduce) {
   *,

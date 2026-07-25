@@ -9,6 +9,7 @@ import { getDictionary } from "@/lib/i18n";
 import { services } from "@/lib/data";
 import { useInView } from "@/lib/useInView";
 import { hasWebGL } from "@/lib/webgl";
+import { asset } from "@/lib/asset";
 import DigitalGlobe from "./DigitalGlobe";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -117,7 +118,9 @@ export default function AfricaGlobe() {
         {/* Plaque d'ambiance générée — profondeur sans coût de rendu */}
         <div
           className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-70"
-          style={{ backgroundImage: "url('/assets/cinematic/africa-ai-ambience-desktop.webp')" }}
+          style={{
+            backgroundImage: `url('${asset("/assets/cinematic/africa-ai-ambience-desktop.webp")}')`,
+          }}
           aria-hidden
         />
 
