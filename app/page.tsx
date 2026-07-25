@@ -1,5 +1,6 @@
 import Preloader from "@/components/Preloader";
 import Hero from "@/components/hero/Hero";
+import AfricaGlobe from "@/components/sections/AfricaGlobe";
 import About from "@/components/sections/About";
 import Products from "@/components/sections/Products";
 import Services from "@/components/sections/Services";
@@ -14,6 +15,9 @@ export default function Home() {
     <>
       <Preloader />
       <Hero />
+      {/* Actes 5 à 7 : le flux né du contact devient le globe, l'Afrique
+          s'illumine, puis son réseau rayonne vers le monde. */}
+      <AfricaGlobe />
       <About />
       <Products />
       <Services />

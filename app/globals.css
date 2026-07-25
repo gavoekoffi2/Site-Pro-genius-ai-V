@@ -38,6 +38,11 @@
 html {
   scroll-behavior: auto;
   overflow-x: clip;
+  scrollbar-gutter: stable;
+}
+
+body {
+  overflow-x: clip;
 }
 
 html.lenis,
@@ -218,7 +223,7 @@ body {
   font-weight: 500;
   color: var(--color-frost);
   border: 1px solid rgba(255, 175, 110, 0.25);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(7, 5, 3, 0.55);
   backdrop-filter: blur(10px);
   transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
   overflow: hidden;

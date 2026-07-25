@@ -8,31 +8,61 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { getDictionary } from "@/lib/i18n";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { hasWebGL } from "@/lib/webgl";
+import { useInView } from "@/lib/useInView";
+import PhotorealHands from "./PhotorealHands";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HandsScene = dynamic(() => import("./HandsScene"), { ssr: false });
+const ContactEnergy = dynamic(() => import("./ContactEnergy"), { ssr: false });
 
 const dict = getDictionary();
 
 /**
- * Hero cinématique : la scène reste épinglée pendant le scroll.
- * La progression rapproche l'index humain de l'index robotique ; au contact,
- * une onde lumineuse traverse l'écran avant de révéler le slogan.
+ * Hero cinématique — actes 1 à 4 de la narration.
+ *
+ * La scène est épinglée pendant 300vh. La progression du scroll pilote :
+ *   0.00 → 0.30  l'invitation s'efface
+ *   0.00 → 0.86  les deux mains se rapprochent (particules + photoréalisme)
+ *   0.42 → 0.84  les particules cèdent la place aux mains photoréalistes
+ *   0.86 → 1.00  le contact : flash, onde, énergie
+ *   0.89 → 0.98  le slogan est révélé
+ *   0.94 → 1.00  l'énergie devient un flux de données vers l'acte du globe
  */
 export default function Hero() {
   const section = useRef<HTMLElement>(null);
   const intro = useRef<HTMLDivElement>(null);
   const slogan = useRef<HTMLDivElement>(null);
   const flash = useRef<HTMLDivElement>(null);
+  const stream = useRef<HTMLDivElement>(null);
   const progress = useRef(0);
+  // Le hero est en haut de page : il est monté d'emblée, mais sa boucle de
+  // rendu s'arrête dès qu'on l'a quitté.
+  const { inView } = useInView(section, { mountMargin: "0px" });
   const [mounted, setMounted] = useState(false);
   const [reduced, setReduced] = useState(false);
+  const [vertical, setVertical] = useState(false);
+  const [webgl, setWebgl] = useState(true);
 
   useEffect(() => {
     setMounted(true);
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setReduced(prefersReduced);
+    setWebgl(hasWebGL());
+
+    const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mqNarrow = window.matchMedia("(max-width: 767px)");
+    setReduced(mqReduce.matches);
+    setVertical(mqNarrow.matches);
+
+    const onNarrow = (e: MediaQueryListEvent) => setVertical(e.matches);
+    mqNarrow.addEventListener("change", onNarrow);
+
+    if (mqReduce.matches) {
+      // Sans animation : les mains sont déjà en contact et le slogan est lisible.
+      progress.current = 1;
+      if (slogan.current) gsap.set(slogan.current, { opacity: 1, y: 0, filter: "blur(0px)" });
+      if (intro.current) gsap.set(intro.current, { opacity: 0 });
+      return () => mqNarrow.removeEventListener("change", onNarrow);
+    }
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
@@ -47,72 +77,70 @@ export default function Hero() {
           // L'invitation initiale s'efface dès que l'histoire commence
           if (intro.current) {
             gsap.set(intro.current, {
-              opacity: gsap.utils.clamp(0, 1, 1 - p / 0.27),
-              y: p * -52,
-              filter: `blur(${p * 13}px)`,
+              opacity: gsap.utils.clamp(0, 1, 1 - p / 0.3),
+              y: p * -60,
+              filter: `blur(${p * 14}px)`,
             });
           }
 
           // Flash plein écran au moment exact du contact
           if (flash.current) {
-            const f = gsap.utils.clamp(0, 1, (p - 0.655) / 0.035) * gsap.utils.clamp(0, 1, (0.775 - p) / 0.055);
-            gsap.set(flash.current, { opacity: f * 0.72 });
+            const f =
+              gsap.utils.clamp(0, 1, (p - 0.855) / 0.05) *
+              gsap.utils.clamp(0, 1, (0.97 - p) / 0.06);
+            gsap.set(flash.current, { opacity: f * 0.55 });
           }
 
           // Révélation du slogan après l'impact
           if (slogan.current) {
-            const s = gsap.utils.clamp(0, 1, (p - 0.755) / 0.12);
+            const s = gsap.utils.clamp(0, 1, (p - 0.885) / 0.09);
             gsap.set(slogan.current, {
               opacity: s,
               y: (1 - s) * 46,
               filter: `blur(${(1 - s) * 12}px)`,
             });
           }
+
+          // Acte 4 — la transmission : l'impulsion devient un flux de données
+          // qui descend vers l'acte du globe. C'est le raccord narratif.
+          if (stream.current) {
+            const t = gsap.utils.clamp(0, 1, (p - 0.94) / 0.06);
+            gsap.set(stream.current, { opacity: t, scaleY: 0.3 + t * 0.7 });
+          }
         },
       });
     }, section);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      mqNarrow.removeEventListener("change", onNarrow);
+    };
   }, []);
 
   return (
-    <section ref={section} className="relative" style={{ height: reduced ? "180vh" : "240vh" }}>
+    <section ref={section} className="relative" style={{ height: reduced ? "100vh" : "300vh" }}>
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         {/* Halo ambiant derrière la scène */}
         <div
           className="animate-aurora pointer-events-none absolute left-1/2 top-1/2 h-[80vmin] w-[110vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60"
-          style={{ background: "radial-gradient(ellipse, rgba(93,156,187,0.15), rgba(21,63,107,0.09) 48%, transparent 70%)" }}
+          style={{
+            background:
+              "radial-gradient(ellipse, rgba(232,118,31,0.13), rgba(46,95,183,0.06) 48%, transparent 70%)",
+          }}
           aria-hidden
         />
         <div className="grid-veil pointer-events-none absolute inset-0" aria-hidden />
 
-        {/* Interface IA cinématique : des repères techniques donnent à la scène
-            la profondeur d'un laboratoire, sans concurrencer les deux mains. */}
-        <div className="hero-hud pointer-events-none absolute inset-0 z-[3] hidden md:block" aria-hidden>
-          <div className="hero-hud-corner hero-hud-corner--tl" />
-          <div className="hero-hud-corner hero-hud-corner--tr" />
-          <div className="hero-hud-corner hero-hud-corner--bl" />
-          <div className="hero-hud-corner hero-hud-corner--br" />
-          <div className="absolute left-8 top-[34%] flex items-center gap-3 xl:left-14">
-            <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-[#70ddd2]/25">
-              <span className="absolute inset-1 animate-ping rounded-full border border-[#70ddd2]/20" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#8cebdd] shadow-[0_0_12px_#70ddd2]" />
-            </span>
-            <div><span className="block font-mono text-[8px] uppercase tracking-[0.25em] text-[#88c9c4]/45">Human potential</span><span className="mt-1 block font-mono text-[10px] tracking-[0.14em] text-[#d9f4f0]/70">CAPACITY · AMPLIFIED</span></div>
-          </div>
-          <div className="absolute right-8 top-[34%] flex items-center gap-3 text-right xl:right-14">
-            <div><span className="block font-mono text-[8px] uppercase tracking-[0.25em] text-[#88c9c4]/45">Intelligence layer</span><span className="mt-1 block font-mono text-[10px] tracking-[0.14em] text-[#d9f4f0]/70">NEURAL CORE · ONLINE</span></div>
-            <span className="relative h-8 w-8 rounded-md border border-[#70ddd2]/25 bg-[#70ddd2]/[0.035]"><span className="absolute inset-x-1 top-1/2 h-px animate-[hud-scan_2.8s_ease-in-out_infinite] bg-[#8cebdd]/75 shadow-[0_0_8px_#70ddd2]" /></span>
-          </div>
-          <div className="absolute bottom-9 left-1/2 flex -translate-x-1/2 items-center gap-5 font-mono text-[8px] uppercase tracking-[0.25em] text-white/25">
-            <span>Agents IA</span><span className="h-1 w-1 rounded-full bg-[#70ddd2]/55" /><span>Automatisation</span><span className="h-1 w-1 rounded-full bg-[#c58b61]/55" /><span>Produits intelligents</span>
-          </div>
-        </div>
-
-        {/* Scène 3D */}
+        {/* Mains photoréalistes — l'asset cinématographique */}
         {mounted && (
+          <PhotorealHands progress={progress} vertical={vertical} staticContact={reduced} />
+        )}
+
+        {/* Énergie du contact — uniquement si WebGL répond. Sans WebGL, les
+            mains photoréalistes assurent seules la scène (repli complet). */}
+        {mounted && !reduced && webgl && (
           <div className="absolute inset-0">
-            <HandsScene progress={progress} />
+            <ContactEnergy progress={progress} vertical={vertical} active={inView} />
           </div>
         )}
 
@@ -120,12 +148,29 @@ export default function Hero() {
         <div
           ref={flash}
           className="pointer-events-none absolute inset-0 opacity-0"
-          style={{ background: "radial-gradient(circle at 50% 53.2%, rgba(255,255,255,0.98), rgba(93,220,204,0.52) 24%, rgba(93,156,187,0.34) 42%, rgba(183,86,29,0.13) 61%, transparent 75%)" }}
+          style={{
+            background:
+              "radial-gradient(circle at 50% 45%, rgba(255,235,210,0.92), rgba(255,150,60,0.38) 40%, transparent 70%)",
+          }}
+          aria-hidden
+        />
+
+        {/* Acte 4 — le flux de données descendant vers le globe */}
+        <div
+          ref={stream}
+          className="pointer-events-none absolute bottom-0 left-1/2 h-[26vh] w-px origin-bottom -translate-x-1/2 opacity-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent, rgba(255,155,69,0.75) 35%, rgba(93,140,224,0.55))",
+          }}
           aria-hidden
         />
 
         {/* Acte I — l'invitation */}
-        <div ref={intro} className="relative z-10 flex h-full flex-col items-center justify-between py-28 text-center md:py-32">
+        <div
+          ref={intro}
+          className="relative z-10 flex h-full flex-col items-center justify-between py-28 text-center md:py-32"
+        >
           <div className="flex flex-col items-center gap-6 px-5">
             <span
               className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 font-display text-[11px] uppercase tracking-[0.3em] text-ember-soft"
@@ -135,21 +180,20 @@ export default function Hero() {
               {dict.hero.eyebrow}
             </span>
             <h1
-              className="font-display max-w-4xl text-balance text-4xl font-medium leading-[0.98] tracking-[-0.045em] text-frost/90 md:text-6xl lg:text-[4.8rem]"
+              className="font-display max-w-3xl text-balance text-3xl font-medium leading-tight tracking-tight text-frost/85 md:text-5xl"
               style={{ opacity: 0, animation: "heroFade 1.4s cubic-bezier(0.22,1,0.36,1) 2.8s both" }}
             >
               {dict.hero.sub}
             </h1>
-            <div className="hero-signal mt-1 h-px w-32 overflow-hidden bg-white/10" aria-hidden>
-              <span className="block h-full w-1/2 bg-gradient-to-r from-transparent via-[#83e8dd] to-transparent" />
-            </div>
           </div>
 
           <div
             className="flex flex-col items-center gap-3 text-mist"
             style={{ opacity: 0, animation: "heroFade 1.2s ease 3.4s both" }}
           >
-            <span className="font-display text-[11px] uppercase tracking-[0.35em]">{dict.hero.scrollHint}</span>
+            <span className="font-display text-[11px] uppercase tracking-[0.35em]">
+              {dict.hero.scrollHint}
+            </span>
             <span className="flex h-10 w-6 items-start justify-center rounded-full border border-white/15 p-1.5">
               <ArrowDown size={12} className="animate-bounce text-ember" />
             </span>
@@ -161,8 +205,20 @@ export default function Hero() {
           ref={slogan}
           className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-8 px-5 text-center opacity-0"
         >
+          {/* Voile de lisibilité : le slogan doit rester lisible par-dessus
+              les mains photoréalistes, sans les effacer. */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 54% at 50% 50%, rgba(7,5,3,0.9), rgba(7,5,3,0.62) 58%, transparent 82%)",
+            }}
+            aria-hidden
+          />
           <h2 className="font-display max-w-5xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-            <span className="text-frost">{dict.hero.slogan}</span>
+            <span className="text-frost drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)]">
+              {dict.hero.slogan}
+            </span>
             <br />
             <span className="text-gradient">{dict.hero.sloganAccent}</span>
           </h2>
