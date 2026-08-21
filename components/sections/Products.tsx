@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Clock3, ExternalLink, Layers3, Monitor, Sparkles } from "lucide-react";
 import { deployedProjects, inProgressProjects, type ProjectShowcase } from "@/lib/data";
 
-type Filter = "all" | "ai" | "website";
+type Filter = "all" | "ai" | "website" | "platform";
 
 const allProjects = [...deployedProjects, ...inProgressProjects];
 
@@ -13,6 +13,7 @@ const filters: { value: Filter; label: string; icon: typeof Layers3 }[] = [
   { value: "all", label: "Toutes les réalisations", icon: Layers3 },
   { value: "ai", label: "Solutions IA", icon: Sparkles },
   { value: "website", label: "Sites web", icon: Monitor },
+  { value: "platform", label: "Plateformes métier", icon: Layers3 },
 ];
 
 function ProjectCard({ project, index }: { project: ProjectShowcase; index: number }) {
@@ -130,8 +131,8 @@ function ProjectCard({ project, index }: { project: ProjectShowcase; index: numb
         )}
 
         <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full border border-white/15 bg-[#06101a]/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#d6e7ed] backdrop-blur-xl md:left-5 md:top-5">
-          {project.kind === "ai" ? <Sparkles className="h-3 w-3 text-[#ACCFD6]" /> : <Monitor className="h-3 w-3 text-[#C5936E]" />}
-          {project.kind === "ai" ? "Solution IA" : "Site web"}
+          {project.kind === "ai" ? <Sparkles className="h-3 w-3 text-[#ACCFD6]" /> : project.kind === "platform" ? <Layers3 className="h-3 w-3 text-[#5D9CBB]" /> : <Monitor className="h-3 w-3 text-[#C5936E]" />}
+          {project.kind === "ai" ? "Solution IA" : project.kind === "platform" ? "Plateforme métier" : "Site web"}
         </div>
 
         <div className={`absolute right-4 top-4 z-10 flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] backdrop-blur-xl md:right-5 md:top-5 ${project.status === "deployed" ? "border-emerald-400/25 bg-[#06101a]/85 text-emerald-300" : "border-[#C5936E]/30 bg-[#120d0a]/85 text-[#d9ad89]"}`}>

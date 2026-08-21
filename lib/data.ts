@@ -24,10 +24,16 @@ export type ProjectShowcase = {
   preview?: string;
   accent: string;
   status: "deployed" | "building";
-  kind: "ai" | "website";
+  kind: "ai" | "website" | "platform";
 };
 
 export const deployedProjects: ProjectShowcase[] = [
+  { slug: "reserva-africa", name: "Reserva Africa", category: "Marketplace touristique", tagline: "Réserver, découvrir et développer l'hospitalité africaine depuis une seule plateforme.", url: "https://reserva-africa.com/", preview: "/projects/reserva-africa.webp", accent: "#C5936E", status: "deployed", kind: "platform" },
+  { slug: "gestione", name: "GestiOne", category: "ERP & gestion d'entreprise", tagline: "Ventes, stock, factures, achats et caisse réunis dans un outil pensé pour les entreprises africaines.", url: "https://gestione.76.13.129.252.sslip.io/", preview: "/projects/gestione.webp", accent: "#5D9CBB", status: "deployed", kind: "platform" },
+  { slug: "finab-abf", name: "FINAB ABF", category: "Conseil financier augmenté", tagline: "Un parcours digital pour structurer les besoins financiers et guider chaque dossier avec méthode.", url: "https://abf.finablasolution.cloud/", preview: "/projects/finab-abf.webp", accent: "#ACCFD6", status: "deployed", kind: "platform" },
+  { slug: "magerance", name: "MaGérance", category: "Gestion locative", tagline: "Suivre les biens, les locataires, les loyers et les opérations locatives avec plus de clarté.", url: "https://magerance.76.13.129.252.sslip.io/", preview: "/projects/magerance.webp", accent: "#C5936E", status: "deployed", kind: "platform" },
+  { slug: "nouvel-afrik-immo", name: "Nouvel Afrik Immobilier", category: "Immobilier & terrain", tagline: "Une expérience digitale pour présenter, rechercher et connecter les opportunités immobilières.", url: "https://nouvel-afrik-immo.76.13.129.252.sslip.io/", preview: "/projects/nouvel-afrik-immo.webp", accent: "#B7561D", status: "deployed", kind: "platform" },
+  { slug: "nouvel-afrik-gaz", name: "Nouvel Afrik Gaz", category: "Distribution énergétique", tagline: "Une plateforme métier pour organiser les opérations et les équipes d'un réseau de distribution.", url: "https://nouvel-afrik-gaz.76.13.129.252.sslip.io/", preview: "/projects/nouvel-afrik-gaz.webp", accent: "#5D9CBB", status: "deployed", kind: "platform" },
   { slug: "emefa", name: "EMEFA", category: "Assistante vocale agentique", tagline: "Une assistante vocale en temps réel, directe, interruptible et capable d’exécuter de vraies tâches.", url: "https://emefa.76.13.129.252.sslip.io/", preview: "/projects/emefa.webp", accent: "#ACCFD6", status: "deployed", kind: "ai" },
   { slug: "graphiste-gpt", name: "Graphiste GPT", category: "Création visuelle IA", tagline: "Des identités visuelles et des campagnes prêtes à marquer les esprits.", url: "https://smart-poster-scribe.vercel.app", preview: "/projects/graphiste-gpt.webp", accent: "#B7561D", status: "deployed", kind: "ai" },
   { slug: "prosocial-ai", name: "ProSocial AI", category: "Réseaux sociaux", tagline: "La création, la planification et la publication réunies dans un même espace intelligent.", url: "https://auto-post-gen.76.13.129.252.sslip.io", preview: "/projects/prosocial-ai.webp", accent: "#5D9CBB", status: "deployed", kind: "ai" },
