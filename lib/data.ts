@@ -28,6 +28,7 @@ export type ProjectShowcase = {
 };
 
 export const deployedProjects: ProjectShowcase[] = [
+  { slug: "site-architecte", name: "ÉMILIANO’H Architecte", category: "Architecture, urbanisme & environnement", tagline: "Un portfolio immersif pour présenter une vision architecturale, des expertises et des projets au Togo.", url: "https://architecte.76.13.129.252.sslip.io/", preview: "/projects/site-architecte.webp", accent: "#C5936E", status: "deployed", kind: "website" },
   { slug: "reserva-africa", name: "Reserva Africa", category: "Marketplace touristique", tagline: "Réserver, découvrir et développer l'hospitalité africaine depuis une seule plateforme.", url: "https://reserva-africa.com/", preview: "/projects/reserva-africa.webp", accent: "#C5936E", status: "deployed", kind: "platform" },
   { slug: "gestione", name: "GestiOne", category: "ERP & gestion d'entreprise", tagline: "Ventes, stock, factures, achats et caisse réunis dans un outil pensé pour les entreprises africaines.", url: "https://gestione.76.13.129.252.sslip.io/", preview: "/projects/gestione.webp", accent: "#5D9CBB", status: "deployed", kind: "platform" },
   { slug: "finab-abf", name: "FINAB ABF", category: "Conseil financier augmenté", tagline: "Un parcours digital pour structurer les besoins financiers et guider chaque dossier avec méthode.", url: "https://abf.finablasolution.cloud/", preview: "/projects/finab-abf.webp", accent: "#ACCFD6", status: "deployed", kind: "platform" },
